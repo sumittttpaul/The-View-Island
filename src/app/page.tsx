@@ -1,6 +1,5 @@
 import Carousel from "components/Carousel";
-import CategoryList from "components/CategoryList";
-import { getFetchUrl, Categories, validArticles } from "utils/Utility";
+import { getFetchUrl } from "utils/Utility";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,14 +21,12 @@ export default async function Home(props: props) {
   });
   const articles = (await data.json()) as Articles[];
 
-  const newArticles = await validArticles(articles, 7, 20);
-
   return (
     <div
       id="page-id"
       className="m-0 mx-auto flex w-full max-w-[110rem] flex-col p-0"
     >
-      <Carousel articles={newArticles} isMobile={isMobile} />
+      <Carousel articles={articles} isMobile={isMobile} />
       <section className="flex w-full flex-col space-y-5 px-2.5 md:space-y-7 md:px-5 md:pt-7">
         <div className="flex flex-col px-2.5 md:px-0">
           <h2 className="truncate text-[1.15rem] md:text-[1.75rem]">
@@ -40,7 +37,7 @@ export default async function Home(props: props) {
             <QuestionMarkCircleIcon className="h-4 w-4 text-gray-600 md:h-5 md:w-5" />
           </p>
         </div>
-        <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {/* <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <CategoryList
             isMobile={isMobile}
             articles={newArticles}
@@ -71,7 +68,7 @@ export default async function Home(props: props) {
             articles={newArticles}
             heading={Categories[9]}
           />
-        </div>
+        </div> */}
       </section>
       <section className="flex w-full items-center justify-center space-x-1 py-7">
         <Link

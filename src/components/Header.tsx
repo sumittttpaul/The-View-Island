@@ -6,18 +6,13 @@ import {
 import Image from "next/image";
 import SearchBox from "components/SearchBox";
 import NavBar from "components/NavBar";
+import LogoLink from "./LogoLink";
 
 export default function Header() {
   return (
     <header className="flex w-full flex-col">
       <div className="grid w-full grid-flow-col grid-rows-2 items-center justify-between px-2 md:flex md:space-x-5 md:px-2.5 md:pt-2.5">
-        <h1 className="flex h-full translate-y-1 cursor-pointer select-none items-center font-novante text-2xl font-semibold uppercase text-gray-500/75 md:text-4xl">
-          <span>The</span>
-          <span className="px-1 font-semibold tracking-wider text-black">
-            View
-          </span>
-          <span>Island</span>
-        </h1>
+        <LogoLink />
         <SearchBox />
         <div className="flex items-center justify-end">
           <button

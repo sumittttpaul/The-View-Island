@@ -1,11 +1,10 @@
 "use client";
 
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@mui/material";
 import Link from "next/link";
 import { useNavStore } from "utils/Zustand";
 
-export default function BackLink() {
+export default function LogoLink() {
   const { setNumber, setWidth, setLeft } = useNavStore();
   const NotMobileScreen = useMediaQuery("(min-width:768px)");
 
@@ -57,10 +56,11 @@ export default function BackLink() {
     <Link
       href="/"
       onClick={handleClick}
-      className="flex -translate-x-2.5 scale-100 items-center space-x-2.5 rounded-lg p-2.5 text-blue-550 transition-all duration-200 ease-in-out md:hover:translate-x-0 md:hover:bg-gray-100 md:active:scale-90"
+      className="flex h-full translate-y-1 cursor-pointer select-none items-center font-novante text-2xl font-semibold uppercase text-gray-500/75 no-underline md:text-4xl"
     >
-      <ChevronLeftIcon className="h-4 w-4 stroke-[3] md:h-5 md:w-5" />
-      <span className="text-xs font-semibold md:text-base">Back to home</span>
+      <span>The</span>
+      <span className="px-1 font-semibold tracking-wider text-black">View</span>
+      <span>Island</span>
     </Link>
   );
 }

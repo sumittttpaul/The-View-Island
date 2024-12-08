@@ -31,8 +31,10 @@ export default function SearchBox() {
 
   const handleSearch = (search: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set("q", search);
-    router.push(`/search?${params.toString()}`);
+    params.set("sortBy", "Relevancy");
+    params.set("time", new Date().toISOString().slice(0, 10).toString());
+    params.set("language", "english");
+    router.push(`/s/${search.replaceAll(" ", "-")}?${params.toString()}`);
     if (getItem()) {
       setItem([
         {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMediaQuery } from "@mui/material";
-import { useRouter, useParams, usePathname } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
 import { Categories } from "utils/Utility";
 import { MotionSpan } from "utils/Motion";
@@ -11,7 +11,6 @@ export default function NavBar() {
   const { Number, Width, Left, setNumber, setWidth, setLeft } = useNavStore();
   const router = useRouter();
   const params = useParams();
-  const pathname = usePathname();
 
   const { category } = params;
 
@@ -237,53 +236,52 @@ export default function NavBar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (pathname !== "/search")
-    return (
-      <nav
-        id="parent-container"
-        className="z-20 flex w-full flex-col bg-white pt-[1.5rem] md:pt-[1.75]"
+  return (
+    <nav
+      id="parent-container"
+      className="z-20 flex w-full flex-col bg-white pt-[1.5rem] md:pt-[1.75]"
+    >
+      <div
+        id="nav-container"
+        className="hide-scrollbar relative mx-auto flex w-full max-w-[110rem] overflow-x-scroll"
       >
-        <div
-          id="nav-container"
-          className="hide-scrollbar relative mx-auto flex w-full max-w-[110rem] overflow-x-scroll"
-        >
-          <ul className="flex space-x-6 px-4 text-xs md:space-x-9 md:px-5 md:text-sm">
-            {Categories.slice(0, 4).map((data, i) => {
-              return (
-                <li
-                  key={i}
-                  onClick={onClick(i)}
-                  id={`nav-button-id-${i}`}
-                  className={`${Number === i ? "text-blue-550" : NotMobileScreen ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
-                >
-                  {data}
-                </li>
-              );
-            })}
-            <li className="mx-10 mb-2 h-5 min-h-5 w-0.5 min-w-0.5 bg-gray-200 md:mb-2.5" />
-            {Categories.slice(4, Categories.length).map((data, i) => {
-              return (
-                <li
-                  key={i + 4}
-                  id={`nav-button-id-${i + 4}`}
-                  onClick={onClick(i + 4)}
-                  className={`${Number === i + 4 ? "text-blue-550" : NotMobileScreen ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
-                >
-                  {data}
-                </li>
-              );
-            })}
-          </ul>
-          <MotionSpan
-            animate="animate"
-            initial="initial"
-            variants={variants}
-            onAnimationComplete={onAnimationComplete}
-            transition={{ type: "twin", duration: 0.1 }}
-            className="absolute bottom-0 z-10 h-[0.2rem] rounded-t-full bg-blue-550 md:h-1"
-          />
-        </div>
-        <span className="-mt-[0.05rem] h-[0.1rem] w-full bg-gray-200 md:h-0.5" />
-      </nav>
-    );
+        <ul className="flex space-x-6 px-4 text-xs md:space-x-9 md:px-5 md:text-sm">
+          {Categories.slice(0, 4).map((data, i) => {
+            return (
+              <li
+                key={i}
+                onClick={onClick(i)}
+                id={`nav-button-id-${i}`}
+                className={`${Number === i ? "text-blue-550" : NotMobileScreen ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
+              >
+                {data}
+              </li>
+            );
+          })}
+          <li className="mx-10 mb-2 h-5 min-h-5 w-0.5 min-w-0.5 bg-gray-200 md:mb-2.5" />
+          {Categories.slice(4, Categories.length).map((data, i) => {
+            return (
+              <li
+                key={i + 4}
+                id={`nav-button-id-${i + 4}`}
+                onClick={onClick(i + 4)}
+                className={`${Number === i + 4 ? "text-blue-550" : NotMobileScreen ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
+              >
+                {data}
+              </li>
+            );
+          })}
+        </ul>
+        <MotionSpan
+          animate="animate"
+          initial="initial"
+          variants={variants}
+          onAnimationComplete={onAnimationComplete}
+          transition={{ type: "twin", duration: 0.1 }}
+          className="absolute bottom-0 z-10 h-[0.2rem] rounded-t-full bg-blue-550 md:h-1"
+        />
+      </div>
+      <span className="-mt-[0.05rem] h-[0.1rem] w-full bg-gray-200 md:h-0.5" />
+    </nav>
+  );
 }

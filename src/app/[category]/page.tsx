@@ -1,6 +1,6 @@
 import ResultList from "components/ResultList";
 import { redirect } from "next/navigation";
-import { getFetchUrl, validArticles } from "utils/Utility";
+import { getFetchUrl } from "utils/Utility";
 
 type props = {
   searchParams: Promise<SearchParams>;
@@ -24,8 +24,6 @@ export default async function Category(props: props) {
   });
   const articles = (await data.json()) as Articles[];
 
-  const newArticles = await validArticles(articles, 7, 20);
-
   return (
     <div
       id="page-id"
@@ -34,13 +32,13 @@ export default async function Category(props: props) {
       <section className="flex w-full flex-col space-y-5 px-2.5 md:space-y-7 md:px-5 md:pt-7">
         <div className="flex flex-col px-2.5 md:px-0">
           <h2 className="truncate text-[1.15rem] md:text-[1.75rem]">
-            {category.toString().replaceAll("-", " ")}
+            {category.toString().replaceAll("-", " ").replaceAll("%20", " ")}
           </h2>
           <p className="flex items-center space-x-1 truncate text-xs text-gray-600 md:text-base">
-            {newArticles.length} results found
+            {articles.length} results found
           </p>
         </div>
-        <ResultList articles={newArticles} />
+        <ResultList articles={articles} />
       </section>
     </div>
   );

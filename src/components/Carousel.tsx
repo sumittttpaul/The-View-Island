@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { getDate } from "utils/Utility";
 
 const SliderCarousel = dynamic<Carousel>(() => import("./SliderCarousel"), {
@@ -21,14 +22,18 @@ type props = {
 export default function Carousel({ articles, isMobile }: props) {
   if (isMobile)
     return (
-      <CarouselWrapper isMobile={isMobile}>
-        <SliderCarousel articles={articles} />
+      <CarouselWrapper isMobile={isMobile} className="relative h-72">
+        <Suspense>
+          <SliderCarousel articles={articles} />
+        </Suspense>
       </CarouselWrapper>
     );
   else
     return (
-      <CarouselWrapper isMobile={isMobile}>
-        <GridCarousel articles={articles} isMobile={isMobile} />
+      <CarouselWrapper isMobile={isMobile} className="relative flex w-full">
+        <Suspense>
+          <GridCarousel articles={articles} isMobile={isMobile} />
+        </Suspense>
       </CarouselWrapper>
     );
 }
@@ -36,9 +41,11 @@ export default function Carousel({ articles, isMobile }: props) {
 const CarouselWrapper = ({
   children,
   isMobile,
+  className,
 }: {
   children: React.ReactNode;
   isMobile?: boolean;
+  className?: string;
 }) => {
   return (
     <section className="flex w-full flex-col space-y-5 py-5">
@@ -73,7 +80,7 @@ const CarouselWrapper = ({
           </div>
         </Link>
       </div>
-      {children}
+      <div className={className}>{children}</div>
     </section>
   );
 };

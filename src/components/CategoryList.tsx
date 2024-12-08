@@ -54,7 +54,7 @@ export default function CategoryList({
                 </h6>
               </li>
               {idx < 2 && (
-                <li key={idx + 1} className="flex w-full md:px-2.5">
+                <li key={idx * 4} className="flex w-full md:px-2.5">
                   <span className="flex h-0.5 w-full bg-gray-200" />
                 </li>
               )}

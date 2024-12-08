@@ -3,6 +3,9 @@ type SearchParams = {
   q?: Promise<string>;
   pathname?: Promise<string>;
   viewport?: Promise<string>;
+  sortBy?: Promise<string>;
+  time?: Promise<string>;
+  language?: Promise<string>;
 };
 
 type Articles = {

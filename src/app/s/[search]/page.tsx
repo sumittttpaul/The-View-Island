@@ -1,15 +1,18 @@
-import { getFetchUrl, validArticles } from "utils/Utility";
+import { getFetchUrl } from "utils/Utility";
 import { redirect } from "next/navigation";
-import BackLink from "components/BackLink";
 import ResultList from "components/ResultList";
+import SearchFilter from "components/SearchFilter";
 
 type props = {
   searchParams: Promise<SearchParams>;
+  params: Promise<{
+    search: string;
+  }>;
 };
 
 export default async function Search(props: props) {
   const searchParams = await props.searchParams;
-  const search = await searchParams?.q;
+  const search = (await props.params).search;
 
   if (!search) redirect("/");
   // const data = await fetch(
@@ -21,26 +24,22 @@ export default async function Search(props: props) {
   });
   const articles = (await data.json()) as Articles[];
 
-  const newArticles = await validArticles(articles, 7, 20);
-
   return (
     <div
       id="page-id"
       className="m-0 mx-auto flex w-full max-w-[70rem] flex-col p-0 py-5"
     >
-      <div className="flex justify-start pl-2.5 md:pl-5">
-        <BackLink />
-      </div>
-      <section className="flex w-full flex-col space-y-5 px-2.5 md:space-y-7 md:px-5 md:pt-7">
+      <SearchFilter />
+      <section className="z-10 flex w-full flex-col space-y-5 bg-white px-2.5 md:space-y-7 md:px-5 md:pt-7">
         <div className="flex flex-col px-2.5 md:px-0">
           <h2 className="truncate text-[1.15rem] md:text-[1.75rem]">
-            {search}
+            {search.toString().replaceAll("-", " ").replaceAll("%20", " ")}
           </h2>
           <p className="flex items-center space-x-1 truncate text-xs text-gray-600 md:text-base">
-            {newArticles.length} results found
+            {articles.length} results found
           </p>
         </div>
-        <ResultList articles={newArticles} />
+        <ResultList articles={articles} />
       </section>
     </div>
   );

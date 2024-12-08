@@ -31,7 +31,7 @@ export default function ResultList({ articles }: Carousel) {
                   {data.author && data.author.length > 0 && (
                     <>
                       <span className="mx-1 md:mx-2">•</span>
-                      <span className="font-semibold">{data.author}</span>
+                      <span className="font-semibold truncate">{data.author}</span>
                     </>
                   )}
                 </h6>
