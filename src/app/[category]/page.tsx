@@ -12,8 +12,6 @@ type props = {
 export default async function Category(props: props) {
   const searchParams = await props.searchParams;
   const category = (await props.params).category;
-  const viewport = searchParams.viewport ?? ("desktop" as string);
-  const isMobile = viewport === "mobile" ? true : false;
 
   if (!category) redirect("/");
   if (category === "Home") redirect("/");
