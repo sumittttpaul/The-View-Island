@@ -11,6 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "blue-550": "rgb(26, 115, 232)",
+      },
+      fontFamily: {
+        novante: "var(--font-novante)",
       },
     },
   },
