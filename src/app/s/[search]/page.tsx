@@ -15,9 +15,7 @@ export default async function Search(props: props) {
   const search = (await props.params).search;
 
   if (!search) redirect("/");
-  // const data = await fetch(
-  //   `https://newsapi.org/v2/everything?q=india&from=2024-12-07&language=en&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`,
-  // );
+
   const data = await fetch(getFetchUrl("api"), {
     method: "POST",
     body: JSON.stringify({ ...searchParams, q: search }),

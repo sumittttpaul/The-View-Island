@@ -20,6 +20,10 @@ export async function POST(request: Request) {
   if (!searchParam.time)
     return NextResponse.next(new Response("Missing time", { status: 400 }));
 
+  // const data = await fetch(
+  //   `https://newsapi.org/v2/everything?q=india&from=2024-12-07&language=en&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`,
+  // );
+
   const dataRes = await fetch("https://theviewislandbackend.vercel.app/");
 
   console.log(searchParam.sortBy);
