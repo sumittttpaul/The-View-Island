@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   if (!searchParam.q)
     return NextResponse.next(new Response("Missing search", { status: 400 }));
 
-  const dataRes = await fetch("http://localhost:3001", {
+  const dataRes = await fetch("https://theviewisland-backend.vercel.app/", {
     cache: "force-cache",
     next: { tags: ["home-fetch"] },
   });
