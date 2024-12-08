@@ -5,27 +5,14 @@ import {
 import { ClockIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { getDate, formattedTitle } from "utils/Utility";
 
 export default function GridCarousel({ articles }: Carousel) {
-  const newDate = (data?: string) => {
-    const date = new Date(data ?? new Date());
-    const formattedDate = new Intl.DateTimeFormat("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-    return formattedDate;
-  };
-
-  const formattedTitle = (title?: string) => {
-    return title?.substring(title?.split(" ")[0].length);
-  };
-
   return (
     <div className="grid h-[32rem] w-full grid-cols-2 gap-2.5 px-2.5 md:h-[50rem] md:grid-cols-3 md:px-5 lg:h-[55rem] xl:grid-cols-4">
       {/* 1 */}
       <div className="col-span-2 flex h-full w-full flex-col space-y-2.5">
-        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
           <Image
             fill
             src={articles[0].urlToImage ?? ""}
@@ -49,18 +36,22 @@ export default function GridCarousel({ articles }: Carousel) {
               <h6 className="flex items-center truncate text-xs text-gray-700 md:text-sm">
                 <ClockIcon className="mr-2 h-5 w-5 md:mr-2.5 md:h-6 md:w-6" />
                 <span>
-                  {newDate(
+                  {getDate(
                     articles[0].publishedAt?.slice(0, 10).replace(" ", "-"),
                   )}
                 </span>
-                <span className="mx-2 md:mx-2.5">•</span>
-                <span className="font-semibold">{articles[0].author}</span>
+                {articles[0].author && articles[0].author.length > 0 && (
+                  <>
+                    <span className="mx-2">•</span>
+                    <span className="font-semibold">{articles[0].author}</span>
+                  </>
+                )}
               </h6>
             </div>
           </div>
         </div>
         <div className="flex h-[25%] w-full space-x-2.5">
-          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
             <Image
               fill
               src={articles[1].urlToImage ?? ""}
@@ -68,7 +59,7 @@ export default function GridCarousel({ articles }: Carousel) {
               className="object-cover blur-2xl"
             />
             <div className="absolute left-0 top-0 flex h-full w-full flex-col">
-              <div className="flex h-full w-full flex-col justify-between bg-gray-200/75 p-2.5 md:p-5">
+              <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-2.5 md:p-5">
                 <Link
                   href={articles[1].url ?? ""}
                   className="line-clamp-3 text-ellipsis text-pretty text-sm decoration-[rgb(175,90,255)] decoration-2 underline-offset-[0.2rem] hover:underline md:text-xl lg:text-2xl"
@@ -81,19 +72,23 @@ export default function GridCarousel({ articles }: Carousel) {
                 <h6 className="mt-2.5 flex items-center truncate text-xs text-gray-700 md:text-sm 2xl:mt-3">
                   <ClockIcon className="mr-2.5 hidden h-6 w-6 md:block" />
                   <span>
-                    {newDate(
+                    {getDate(
                       articles[1].publishedAt?.slice(0, 10).replace(" ", "-"),
                     )}
                   </span>
-                  <span className="mx-2.5 hidden md:block">•</span>
-                  <span className="hidden font-semibold md:block">
-                    {articles[1].author}
-                  </span>
+                  {articles[1].author && articles[1].author.length > 0 && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="font-semibold">
+                        {articles[1].author}
+                      </span>
+                    </>
+                  )}
                 </h6>
               </div>
             </div>
           </div>
-          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
             <Image
               fill
               src={articles[2].urlToImage ?? ""}
@@ -101,7 +96,7 @@ export default function GridCarousel({ articles }: Carousel) {
               className="object-cover blur-2xl"
             />
             <div className="absolute left-0 top-0 flex h-full w-full flex-col">
-              <div className="flex h-full w-full flex-col justify-between bg-gray-200/75 p-2.5 md:p-5">
+              <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-2.5 md:p-5">
                 <Link
                   href={articles[2].url ?? ""}
                   className="line-clamp-3 text-ellipsis text-pretty text-sm decoration-[rgb(35,180,144)] decoration-2 underline-offset-[0.2rem] hover:underline md:text-xl lg:text-2xl"
@@ -114,14 +109,18 @@ export default function GridCarousel({ articles }: Carousel) {
                 <h6 className="mt-2.5 flex items-center truncate text-xs text-gray-700 md:text-sm 2xl:mt-3">
                   <ClockIcon className="mr-2.5 hidden h-6 w-6 md:block" />
                   <span>
-                    {newDate(
+                    {getDate(
                       articles[2].publishedAt?.slice(0, 10).replace(" ", "-"),
                     )}
                   </span>
-                  <span className="mx-2.5 hidden md:block">•</span>
-                  <span className="hidden font-semibold md:block">
-                    {articles[2].author}
-                  </span>
+                  {articles[1].author && articles[1].author.length > 0 && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="font-semibold">
+                        {articles[1].author}
+                      </span>
+                    </>
+                  )}
                 </h6>
               </div>
             </div>
@@ -130,7 +129,7 @@ export default function GridCarousel({ articles }: Carousel) {
       </div>
       {/* 2 */}
       <div className="hidden h-full w-full flex-col space-y-2.5 md:flex">
-        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
           <Image
             fill
             src={articles[3].urlToImage ?? ""}
@@ -151,18 +150,22 @@ export default function GridCarousel({ articles }: Carousel) {
               <h6 className="mt-4 flex items-center truncate text-sm text-gray-700">
                 <ClockIcon className="mr-2.5 h-6 w-6" />
                 <span>
-                  {newDate(
+                  {getDate(
                     articles[3].publishedAt?.slice(0, 10).replace(" ", "-"),
                   )}
                 </span>
-                <span className="mx-2.5">•</span>
-                <span className="font-semibold">{articles[3].author}</span>
+                {articles[3].author && articles[3].author.length > 0 && (
+                  <>
+                    <span className="mx-2">•</span>
+                    <span className="font-semibold">{articles[3].author}</span>
+                  </>
+                )}
               </h6>
             </div>
           </div>
         </div>
         <div className="flex h-full w-full flex-col space-y-2.5">
-          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
             <Image
               fill
               src={articles[4].urlToImage ?? ""}
@@ -170,7 +173,7 @@ export default function GridCarousel({ articles }: Carousel) {
               className="object-cover blur-2xl"
             />
             <div className="absolute left-0 top-0 flex h-full w-full flex-col">
-              <div className="flex h-full w-full flex-col justify-between bg-gray-200/75 p-5">
+              <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-5">
                 <div className="flex w-full flex-col">
                   <Link
                     href={articles[4].url ?? ""}
@@ -188,12 +191,18 @@ export default function GridCarousel({ articles }: Carousel) {
                 <h6 className="mt-3 flex items-center truncate text-sm text-gray-700">
                   <ClockIcon className="mr-2.5 h-6 w-6" />
                   <span>
-                    {newDate(
+                    {getDate(
                       articles[4].publishedAt?.slice(0, 10).replace(" ", "-"),
                     )}
                   </span>
-                  <span className="mx-2.5">•</span>
-                  <span className="font-semibold">{articles[4].author}</span>
+                  {articles[4].author && articles[4].author.length > 0 && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="font-semibold">
+                        {articles[4].author}
+                      </span>
+                    </>
+                  )}
                 </h6>
               </div>
             </div>
@@ -201,7 +210,7 @@ export default function GridCarousel({ articles }: Carousel) {
           <div className="flex h-[40%] w-full space-x-2.5">
             <Link
               href={""}
-              className="flex h-full w-full items-center justify-center rounded-2xl bg-red-200/75"
+              className="flex h-full w-full items-center justify-center rounded-xl bg-red-200/75 md:rounded-2xl"
             >
               <Image
                 height={40}
@@ -213,7 +222,7 @@ export default function GridCarousel({ articles }: Carousel) {
             </Link>
             <Link
               href={""}
-              className="flex h-full w-full items-center justify-center rounded-2xl bg-blue-200/75"
+              className="flex h-full w-full items-center justify-center rounded-xl bg-blue-200/75 md:rounded-2xl"
             >
               <Image
                 height={40}
@@ -225,7 +234,7 @@ export default function GridCarousel({ articles }: Carousel) {
             </Link>
             <Link
               href={""}
-              className="flex h-full w-full items-center justify-center rounded-2xl bg-green-200/75"
+              className="flex h-full w-full items-center justify-center rounded-xl bg-green-200/75 md:rounded-2xl"
             >
               <Image
                 height={40}
@@ -237,7 +246,7 @@ export default function GridCarousel({ articles }: Carousel) {
             </Link>
             <Link
               href={""}
-              className="flex h-full w-full items-center justify-center rounded-2xl bg-gray-200/75"
+              className="flex h-full w-full items-center justify-center rounded-xl bg-gray-100 md:rounded-2xl"
             >
               <Image
                 height={30}
@@ -248,33 +257,39 @@ export default function GridCarousel({ articles }: Carousel) {
               />
             </Link>
           </div>
-          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
             <Image
               fill
-              src={articles[6].urlToImage ?? ""}
-              alt={articles[6].title ?? ""}
+              src={articles[5].urlToImage ?? ""}
+              alt={articles[5].title ?? ""}
               className="object-cover blur-2xl"
             />
             <div className="absolute left-0 top-0 flex h-full w-full flex-col">
-              <div className="flex h-full w-full flex-col justify-between bg-gray-200/75 p-5">
+              <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-5">
                 <Link
-                  href={articles[6].url ?? ""}
+                  href={articles[5].url ?? ""}
                   className="line-clamp-3 text-ellipsis text-pretty text-xl decoration-[rgb(236,155,48)] decoration-2 underline-offset-[0.2rem] hover:underline lg:text-2xl"
                 >
                   <span className="select-none bg-[rgb(236,155,48)] px-2 text-white">
-                    {articles[6].title?.split(" ")[0]}
+                    {articles[5].title?.split(" ")[0]}
                   </span>
                   <span>{formattedTitle(articles[6].title)}</span>
                 </Link>
                 <h6 className="mt-2.5 flex items-center truncate text-sm text-gray-700 2xl:mt-3">
                   <ClockIcon className="mr-2.5 h-6 w-6" />
                   <span>
-                    {newDate(
-                      articles[6].publishedAt?.slice(0, 10).replace(" ", "-"),
+                    {getDate(
+                      articles[5].publishedAt?.slice(0, 10).replace(" ", "-"),
                     )}
                   </span>
-                  <span className="mx-2.5">•</span>
-                  <span className="font-semibold">{articles[2].author}</span>
+                  {articles[5].author && articles[5].author.length > 0 && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="font-semibold">
+                        {articles[5].author}
+                      </span>
+                    </>
+                  )}
                 </h6>
               </div>
             </div>
@@ -283,7 +298,7 @@ export default function GridCarousel({ articles }: Carousel) {
       </div>
       {/* 3 */}
       <div className="hidden h-full w-full flex-col space-y-2.5 xl:flex">
-        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-200/75">
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100 md:rounded-2xl">
           <Image
             fill
             src={articles[6].urlToImage ?? ""}
@@ -291,7 +306,7 @@ export default function GridCarousel({ articles }: Carousel) {
             className="object-cover blur-2xl"
           />
           <div className="absolute left-0 top-0 flex h-full w-full flex-col">
-            <div className="flex h-full w-full flex-col justify-between bg-gray-200/75 p-5">
+            <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-5">
               <div className="flex h-full w-full flex-col">
                 <Link
                   href={articles[6].url ?? ""}
@@ -309,19 +324,23 @@ export default function GridCarousel({ articles }: Carousel) {
               <h6 className="flex items-center truncate text-sm text-gray-700">
                 <ClockIcon className="mr-2.5 h-6 w-6" />
                 <span>
-                  {newDate(
+                  {getDate(
                     articles[6].publishedAt?.slice(0, 10).replace(" ", "-"),
                   )}
                 </span>
-                <span className="mx-2.5">•</span>
-                <span className="font-semibold">{articles[6].author}</span>
+                {articles[6].author && articles[6].author.length > 0 && (
+                  <>
+                    <span className="mx-2">•</span>
+                    <span className="font-semibold">{articles[6].author}</span>
+                  </>
+                )}
               </h6>
             </div>
           </div>
         </div>
         <div className="flex h-full w-full flex-col space-y-2.5">
           <div className="flex h-full w-full space-x-2.5">
-            <div className="flex h-full w-full flex-col items-start justify-between rounded-2xl bg-green-200/75 py-5 pl-5">
+            <div className="flex h-full w-full flex-col items-start justify-between rounded-xl bg-green-200/75 py-5 pl-5 md:rounded-2xl">
               <span className="flex w-full justify-between pr-5">
                 <span className="text-sm font-semibold text-green-700 2xl:text-base">
                   Increasing
@@ -344,7 +363,7 @@ export default function GridCarousel({ articles }: Carousel) {
                 </span>
               </p>
             </div>
-            <div className="flex h-full w-full flex-col items-start justify-between rounded-2xl bg-yellow-200/75 py-5 pl-5">
+            <div className="flex h-full w-full flex-col items-start justify-between rounded-xl bg-yellow-200/75 py-5 pl-5 md:rounded-2xl">
               <span className="flex w-full justify-between pr-5">
                 <span className="text-sm font-semibold text-yellow-700 2xl:text-base">
                   Increasing
@@ -368,7 +387,7 @@ export default function GridCarousel({ articles }: Carousel) {
             </div>
           </div>
           <div className="flex h-full w-full space-x-2.5">
-            <div className="flex h-full w-full flex-col items-start justify-between rounded-2xl bg-blue-200/75 py-5 pl-5">
+            <div className="flex h-full w-full flex-col items-start justify-between rounded-xl bg-blue-200/75 py-5 pl-5 md:rounded-2xl">
               <span className="flex w-full justify-between pr-5">
                 <span className="text-sm font-semibold text-blue-700 2xl:text-base">
                   Increasing
@@ -391,7 +410,7 @@ export default function GridCarousel({ articles }: Carousel) {
                 </span>
               </p>
             </div>
-            <div className="flex h-full w-full flex-col items-start justify-between rounded-2xl bg-red-200/75 py-5 pl-5">
+            <div className="flex h-full w-full flex-col items-start justify-between rounded-xl bg-red-200/75 py-5 pl-5 md:rounded-2xl">
               <span className="flex w-full justify-between pr-5">
                 <span className="text-sm font-semibold text-red-700 2xl:text-base">
                   Decreasing

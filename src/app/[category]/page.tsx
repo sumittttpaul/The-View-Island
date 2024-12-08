@@ -1,5 +1,6 @@
+import ResultList from "components/ResultList";
 import { redirect } from "next/navigation";
-import { getFetchUrl } from "utils/getFetchUrl";
+import { getFetchUrl, validArticles } from "utils/Utility";
 
 type props = {
   searchParams: Promise<SearchParams>;
@@ -11,6 +12,8 @@ type props = {
 export default async function Category(props: props) {
   const searchParams = await props.searchParams;
   const category = (await props.params).category;
+  const viewport = searchParams.viewport ?? ("desktop" as string);
+  const isMobile = viewport === "mobile" ? true : false;
 
   if (!category) redirect("/");
   if (category === "Home") redirect("/");
@@ -23,18 +26,24 @@ export default async function Category(props: props) {
   });
   const articles = (await data.json()) as Articles[];
 
+  const newArticles = await validArticles(articles, 7, 20);
+
   return (
-    <div id="page-id" className="m-0 flex w-full flex-col p-0">
-      <div className="w-ful flex flex-col p-5">
-        {articles.map((data, i) => {
-          if (data.title == "[Removed]" || data.description == null) return;
-          return (
-            <span key={i} className="text-wrap text-sm font-normal">
-              - {data.title?.replaceAll("-", " ")}
-            </span>
-          );
-        })}
-      </div>
+    <div
+      id="page-id"
+      className="m-0 mx-auto flex w-full max-w-[70rem] flex-col p-0 py-5"
+    >
+      <section className="flex w-full flex-col space-y-5 px-2.5 md:space-y-7 md:px-5 md:pt-7">
+        <div className="flex flex-col px-2.5 md:px-0">
+          <h2 className="truncate text-[1.15rem] md:text-[1.75rem]">
+            {category.toString().replaceAll("-", " ")}
+          </h2>
+          <p className="flex items-center space-x-1 truncate text-xs text-gray-600 md:text-base">
+            {newArticles.length} results found
+          </p>
+        </div>
+        <ResultList articles={newArticles} />
+      </section>
     </div>
   );
 }

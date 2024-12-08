@@ -19,6 +19,11 @@ type Articles = {
   publishedAt: string | undefined;
 };
 
+type ValidateArticles = {
+  data: Articles;
+  isValid?: boolean;
+};
+
 type SearchHistory = {
   Search: string;
   SearchRef: React.RefObject<HTMLInputElement>;

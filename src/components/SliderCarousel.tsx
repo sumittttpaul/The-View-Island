@@ -3,31 +3,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";
+import { getDate, formattedTitle } from "utils/Utility";
+
+const AllColors = [
+  "bg-[rgb(41,141,255)]",
+  "bg-[rgb(255,40,40)]",
+  "bg-[rgb(175,90,255)]",
+  "bg-[rgb(35,180,144)]",
+  "bg-[rgb(238,47,174)]",
+  "bg-[rgb(236,155,48)]",
+  "bg-[rgb(29,148,55)]",
+];
 
 export default function SliderCarousel({ articles }: Carousel) {
-  const newDate = (data?: string) => {
-    const date = new Date(data ?? new Date());
-    const formattedDate = new Intl.DateTimeFormat("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-    return formattedDate;
-  };
-
-  const getBgColors = (index: number) => {
-    if (index === 0) return "bg-[rgb(41,141,255)]";
-    if (index === 1) return "bg-[rgb(255,40,40)]";
-    if (index === 2) return "bg-[rgb(175,90,255)]";
-    if (index === 3) return "bg-[rgb(35,180,144)]";
-    if (index === 4) return "bg-[rgb(238,47,174)]";
-    if (index === 5) return "bg-[rgb(236,155,48)]";
-    if (index === 6) return "bg-[rgb(29,148,55)]";
-  };
-
-  const formattedTitle = (title?: string) => {
-    return title?.substring(title?.split(" ")[0].length);
-  };
+  const getBgColors = () =>
+    AllColors[Math.floor(Math.random() * AllColors.length)];
 
   return (
     <div className="relative space-y-2">
@@ -38,11 +28,11 @@ export default function SliderCarousel({ articles }: Carousel) {
         style={{ paddingLeft: 10, paddingRight: 10 }}
         className="h-72"
       >
-        {articles.map((data, index) => {
+        {articles.slice(0, 10).map((data, index) => {
           return (
             <SwiperSlide
               key={index}
-              className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-200/75"
+              className="relative flex h-full w-full flex-col overflow-hidden rounded-xl bg-gray-100"
             >
               <Image
                 fill
@@ -57,24 +47,28 @@ export default function SliderCarousel({ articles }: Carousel) {
                     className="line-clamp-2 text-ellipsis text-pretty text-xl"
                   >
                     <span
-                      className={`select-none ${getBgColors(index)} px-2 text-white`}
+                      className={`select-none ${getBgColors()} px-2 text-white`}
                     >
                       {data.title?.split(" ")[0]}
                     </span>
                     <span>{formattedTitle(data.title)}</span>
                   </Link>
-                  <p className="my-3 line-clamp-2 text-ellipsis text-pretty text-sm text-gray-700">
+                  <p className="my-3 line-clamp-2 text-ellipsis text-pretty text-[0.8125rem] text-gray-700">
                     {data.description}
                   </p>
                   <h6 className="flex items-center truncate text-xs text-gray-700">
                     <ClockIcon className="mr-2 h-5 w-5" />
                     <span>
-                      {newDate(
+                      {getDate(
                         data.publishedAt?.slice(0, 10).replace(" ", "-"),
                       )}
                     </span>
-                    <span className="mx-2">•</span>
-                    <span className="font-semibold">{data.author}</span>
+                    {data.author && data.author.length > 0 && (
+                      <>
+                        <span className="mx-2">•</span>
+                        <span className="font-semibold">{data.author}</span>
+                      </>
+                    )}
                   </h6>
                 </div>
               </div>

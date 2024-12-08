@@ -2,16 +2,18 @@
 
 import { useMediaQuery } from "@mui/material";
 import { useRouter, useParams, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Categories } from "utils/Utility";
 import { MotionSpan } from "utils/Motion";
+import { useNavStore } from "utils/Zustand";
 
 export default function NavBar() {
-  const [Number, setNumber] = useState(-1);
-  const [Width, setWidth] = useState(0);
-  const [Left, setLeft] = useState(0);
+  const { Number, Width, Left, setNumber, setWidth, setLeft } = useNavStore();
   const router = useRouter();
   const params = useParams();
   const pathname = usePathname();
+
+  const { category } = params;
 
   const NotMobileScreen = useMediaQuery("(min-width:768px)");
 
@@ -118,7 +120,6 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    const { category } = params;
     const ScrollContainer = document.getElementById("nav-container");
     const ViewPortContainer =
       document.getElementById("parent-container")?.clientWidth;
@@ -169,12 +170,11 @@ export default function NavBar() {
       }
     }
 
+    //
+
     const container = document.getElementById("nav-container");
     const navBar = document.getElementById("parent-container");
     const page = document.getElementById("page-id");
-
-    // const viewport = searchParams.get("viewport");
-    // console.log(viewport);
 
     const properties = { passive: true };
 
@@ -237,7 +237,7 @@ export default function NavBar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (pathname !== "/search") {
+  if (pathname !== "/search")
     return (
       <nav
         id="parent-container"
@@ -286,21 +286,4 @@ export default function NavBar() {
         <span className="-mt-[0.05rem] h-[0.1rem] w-full bg-gray-200 md:h-0.5" />
       </nav>
     );
-  } else return null;
 }
-
-const Categories = [
-  "Home",
-  "For You",
-  "Following",
-  "News Showcase",
-  "India",
-  "World",
-  "Local",
-  "Business",
-  "Technology",
-  "Entertainment",
-  "Sports",
-  "Science",
-  "Health",
-];

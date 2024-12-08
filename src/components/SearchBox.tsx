@@ -145,7 +145,7 @@ export default function SearchBox() {
     >
       <div
         onClick={SearchBoxClick}
-        className="relative flex h-full w-full items-center overflow-hidden rounded-lg bg-gray-200/75"
+        className="relative flex h-full w-full items-center overflow-hidden rounded-lg bg-gray-100"
       >
         <input
           ref={SearchRef}

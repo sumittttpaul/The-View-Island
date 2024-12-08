@@ -51,7 +51,7 @@ export default function SearchHistory(props: SearchHistory) {
         animate={{ opacity: 100 }}
         exit={{ opacity: 0 }}
         transition={{ key: "twin", duration: 0.1 }}
-        className="absolute top-[3.3rem] z-10 block w-full rounded-lg bg-gray-200/75 px-1.5 py-2.5 text-black shadow-2xl backdrop-blur-3xl md:top-12"
+        className="absolute top-[3.3rem] z-10 block w-full rounded-lg bg-gray-100 px-1.5 py-2.5 text-black shadow-2xl backdrop-blur-3xl md:top-12"
       >
         {Data.slice(0, 6).map((data, idx) => (
           <div

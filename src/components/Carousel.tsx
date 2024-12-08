@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { getDate } from "utils/Utility";
 
 const SliderCarousel = dynamic<Carousel>(() => import("./SliderCarousel"), {
   ssr: false,
@@ -18,25 +19,16 @@ type props = {
 };
 
 export default function Carousel({ articles, isMobile }: props) {
-  const content = [
-    articles[20],
-    articles[33],
-    articles[65],
-    articles[32],
-    articles[76],
-    articles[64],
-    articles[5],
-  ];
   if (isMobile)
     return (
       <CarouselWrapper isMobile={isMobile}>
-        <SliderCarousel articles={content} />
+        <SliderCarousel articles={articles} />
       </CarouselWrapper>
     );
   else
     return (
       <CarouselWrapper isMobile={isMobile}>
-        <GridCarousel articles={content} isMobile={isMobile} />
+        <GridCarousel articles={articles} isMobile={isMobile} />
       </CarouselWrapper>
     );
 }
@@ -48,16 +40,6 @@ const CarouselWrapper = ({
   children: React.ReactNode;
   isMobile?: boolean;
 }) => {
-  const newDate = (data?: string) => {
-    const date = new Date(data ?? new Date());
-    const formattedDate = new Intl.DateTimeFormat("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-    return formattedDate;
-  };
-
   return (
     <section className="flex w-full flex-col space-y-5 py-5">
       <div className="flex w-full items-center justify-between px-5">
@@ -65,7 +47,7 @@ const CarouselWrapper = ({
           <h2 className="truncate text-[1.15rem] md:text-[1.75rem]">
             Your briefing
           </h2>
-          <p className="text-xs md:text-base">{newDate()}</p>
+          <p className="text-xs text-gray-600 md:text-base">{getDate()}</p>
         </div>
         <Link
           href={"https://www.google.com/search?q=weather"}
@@ -76,7 +58,7 @@ const CarouselWrapper = ({
             width={isMobile ? 41 : 93}
             src="/images/weather.png"
             alt="weather logo"
-            className="object-contain"
+            className={`object-contain ${!isMobile && "max-h-[2.5625rem] max-w-[2.5625rem] md:max-h-[5.8125rem] md:max-w-[5.8125rem]"}`}
           />
           <div className="flex md:flex-col">
             <span className="hidden text-xs font-medium text-gray-500 md:block md:text-sm">

@@ -53,7 +53,7 @@ export default function Header() {
             <Image
               height={40}
               width={40}
-              src="/profile-picture.jpg"
+              src="/images/sumit.png"
               alt="user-profile"
               className="object-fit rounded-full object-cover"
             />
