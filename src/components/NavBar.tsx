@@ -226,6 +226,7 @@ export default function NavBar() {
       container.addEventListener("mouseenter", onMouseEnter, properties);
       container.addEventListener("mouseleave", onMouseExit, properties);
       window.addEventListener("scroll", stickNav, properties);
+
       return () => {
         container.removeEventListener("wheel", onWheel);
         container.removeEventListener("mouseenter", onMouseEnter);
@@ -233,6 +234,7 @@ export default function NavBar() {
         window.removeEventListener("scroll", stickNav);
       };
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

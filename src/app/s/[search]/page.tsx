@@ -1,4 +1,3 @@
-import { getFetchUrl } from "utils/Utility";
 import { redirect } from "next/navigation";
 import ResultList from "components/ResultList";
 import SearchFilter from "components/SearchFilter";
@@ -13,15 +12,16 @@ type props = {
 export default async function Search(props: props) {
   const searchParams = await props.searchParams;
   const search = (await props.params).search;
-  const viewport = searchParams.viewport ?? ("desktop" as string);
-  const sortBy = searchParams.sortBy ?? ("Relevancy" as string);
-  const language = searchParams.language ?? ("English" as string);
+  const viewport = (await searchParams.viewport) ?? ("desktop" as string);
+  const sortBy = (await searchParams.sortBy) ?? ("Relevancy" as string);
+  const language = (await searchParams.language) ?? ("English" as string);
   const time =
-    searchParams.time ?? new Date().toISOString().slice(0, 10).toString();
+    (await searchParams.time) ??
+    new Date().toISOString().slice(0, 10).toString();
 
   if (!search) redirect("/");
 
-  const data = await fetch(getFetchUrl("api"), {
+  const data = await fetch("https://theviewisland.vercel.app/api", {
     method: "POST",
     body: JSON.stringify({
       sortBy: sortBy,
@@ -31,10 +31,11 @@ export default async function Search(props: props) {
       q: search,
     }),
   });
+
   const articles = (await data.json()) as Articles[];
 
   return (
-    <div
+    <main
       id="page-id"
       className="m-0 mx-auto flex w-full max-w-[70rem] flex-col p-0 py-5"
     >
@@ -50,6 +51,6 @@ export default async function Search(props: props) {
         </div>
         <ResultList articles={articles} />
       </section>
-    </div>
+    </main>
   );
 }

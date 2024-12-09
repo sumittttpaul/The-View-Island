@@ -1,6 +1,5 @@
 import ResultList from "components/ResultList";
 import { redirect } from "next/navigation";
-import { getFetchUrl } from "utils/Utility";
 
 type props = {
   searchParams: Promise<SearchParams>;
@@ -12,16 +11,17 @@ type props = {
 export default async function Category(props: props) {
   const searchParams = await props.searchParams;
   const category = (await props.params).category;
-  const viewport = searchParams.viewport ?? ("desktop" as string);
-  const sortBy = searchParams.sortBy ?? ("Relevancy" as string);
-  const language = searchParams.language ?? ("English" as string);
+  const viewport = (await searchParams.viewport) ?? ("desktop" as string);
+  const sortBy = (await searchParams.sortBy) ?? ("Relevancy" as string);
+  const language = (await searchParams.language) ?? ("English" as string);
   const time =
-    searchParams.time ?? new Date().toISOString().slice(0, 10).toString();
+    (await searchParams.time) ??
+    new Date().toISOString().slice(0, 10).toString();
 
   if (!category) redirect("/");
   if (category === "Home") redirect("/");
 
-  const data = await fetch(getFetchUrl("api"), {
+  const data = await fetch("https://theviewisland.vercel.app/api", {
     method: "POST",
     body: JSON.stringify({
       sortBy: sortBy,
@@ -31,10 +31,11 @@ export default async function Category(props: props) {
       q: category,
     }),
   });
+
   const articles = (await data.json()) as Articles[];
 
   return (
-    <div
+    <main
       id="page-id"
       className="m-0 mx-auto flex w-full max-w-[70rem] flex-col p-0 py-5"
     >
@@ -49,6 +50,6 @@ export default async function Category(props: props) {
         </div>
         <ResultList articles={articles} />
       </section>
-    </div>
+    </main>
   );
 }

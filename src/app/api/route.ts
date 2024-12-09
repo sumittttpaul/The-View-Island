@@ -8,9 +8,6 @@ export async function POST(request: Request) {
   if (!searchParam)
     return NextResponse.next(new Response("Missing params", { status: 400 }));
 
-  if (!searchParam.q)
-    return NextResponse.next(new Response("Missing search", { status: 400 }));
-
   const getSearch = searchParam.q ?? "latest";
   const getDate = searchParam.time ?? new Date().toISOString().slice(0, 10);
   const getSortBy =
@@ -36,7 +33,11 @@ export async function POST(request: Request) {
     return NextResponse.next(new Response("Data not found", { status: 400 }));
   }
 
-  const articles = await validArticles(post.articles, 7, 15);
+  const articles = await validArticles(post.articles, 10, 15);
+
+  if (!articles) {
+    return NextResponse.next(new Response("Data not found", { status: 400 }));
+  }
 
   return NextResponse.json(articles);
 }

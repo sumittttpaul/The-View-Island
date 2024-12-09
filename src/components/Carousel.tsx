@@ -30,7 +30,7 @@ export default function Carousel({ articles, isMobile }: props) {
     );
   else
     return (
-      <CarouselWrapper isMobile={isMobile} className="relative flex w-full">
+      <CarouselWrapper isMobile={isMobile} className="relative flex w-full h-[32rem] md:h-[50rem] lg:h-[55rem]">
         <Suspense>
           <GridCarousel articles={articles} isMobile={isMobile} />
         </Suspense>

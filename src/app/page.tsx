@@ -1,5 +1,5 @@
 import Carousel from "components/Carousel";
-import { Categories, getFetchUrl } from "utils/Utility";
+import { Categories } from "utils/Utility";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,15 +11,20 @@ type props = {
 
 export default async function Home(props: props) {
   const searchParams = await props.searchParams;
-  const viewport = searchParams.viewport ?? ("desktop" as string);
-  const sortBy = searchParams.sortBy ?? ("Relevancy" as string);
-  const language = searchParams.language ?? ("English" as string);
-  const isMobile = viewport === "mobile" ? true : false;
+  const viewport = (await searchParams.viewport) ?? ("desktop" as string);
+  const sortBy = (await searchParams.sortBy) ?? ("Relevancy" as string);
+  const language = (await searchParams.language) ?? ("English" as string);
   const time =
-    searchParams.time ?? new Date().toISOString().slice(0, 10).toString();
+    (await searchParams.time) ??
+    new Date().toISOString().slice(0, 10).toString();
+  const isMobile = viewport === "mobile" ? true : false;
 
-  const data = await fetch(getFetchUrl("api"), {
+  const data = await fetch("https://theviewisland.vercel.app/api", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
     body: JSON.stringify({
       sortBy: sortBy,
       time: time,
@@ -32,7 +37,7 @@ export default async function Home(props: props) {
   const articles = (await data.json()) as Articles[];
 
   return (
-    <div
+    <main
       id="page-id"
       className="m-0 mx-auto flex w-full max-w-[110rem] flex-col p-0"
     >
@@ -50,32 +55,32 @@ export default async function Home(props: props) {
         <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <CategoryList
             isMobile={isMobile}
-            articles={articles.slice(0, 4)}
+            articles={articles.sort(() => Math.random() - 0.5)}
             heading={Categories[4]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.slice(2, 6)}
+            articles={articles.sort(() => Math.random() - 0.5)}
             heading={Categories[5]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.slice(1, 5)}
+            articles={articles.sort(() => Math.random() - 0.5)}
             heading={Categories[6]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={[articles[2], articles[4], articles[6]]}
+            articles={articles.sort(() => Math.random() - 0.5)}
             heading={Categories[7]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={[articles[1], articles[3], articles[5]]}
+            articles={articles.sort(() => Math.random() - 0.5)}
             heading={Categories[8]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.slice(0, 4)}
+            articles={articles.sort(() => Math.random() - 0.5)}
             heading={Categories[9]}
           />
         </div>
@@ -100,6 +105,6 @@ export default async function Home(props: props) {
           </p>
         </Link>
       </section>
-    </div>
+    </main>
   );
 }

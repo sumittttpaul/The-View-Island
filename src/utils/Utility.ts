@@ -46,13 +46,6 @@ export const language = [
 export const formattedTitle = (title?: string) =>
   title?.substring(title?.split(" ")[0].length);
 
-export const getFetchUrl = (route: string) =>
-  `${
-    process.env.NODE_ENV === "production"
-      ? "https://theviewisland.vercel.app/"
-      : "http://localhost:3000"
-  }/${route}`;
-
 export const getDate = (data?: string) => {
   const date = new Date(data ?? new Date());
   const formattedDate = new Intl.DateTimeFormat("en-US", {
