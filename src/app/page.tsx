@@ -50,32 +50,32 @@ export default async function Home(props: props) {
         <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <CategoryList
             isMobile={isMobile}
-            articles={articles}
+            articles={articles.slice(0, 4)}
             heading={Categories[4]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles}
+            articles={articles.slice(2, 6)}
             heading={Categories[5]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles}
+            articles={articles.slice(1, 5)}
             heading={Categories[6]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles}
+            articles={[articles[2], articles[4], articles[6]]}
             heading={Categories[7]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles}
+            articles={[articles[1], articles[3], articles[5]]}
             heading={Categories[8]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles}
+            articles={articles.slice(0, 4)}
             heading={Categories[9]}
           />
         </div>
