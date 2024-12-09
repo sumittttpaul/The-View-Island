@@ -55,32 +55,32 @@ export default async function Home(props: props) {
         <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <CategoryList
             isMobile={isMobile}
-            articles={articles.sort(() => Math.random() - 0.5)}
+            articles={articles.slice(0, 4)}
             heading={Categories[4]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.sort(() => Math.random() - 0.5)}
+            articles={articles.slice(5, 8)}
             heading={Categories[5]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.sort(() => Math.random() - 0.5)}
+            articles={articles.slice(3, 6)}
             heading={Categories[6]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.sort(() => Math.random() - 0.5)}
+            articles={articles.slice(2, 5)}
             heading={Categories[7]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.sort(() => Math.random() - 0.5)}
+            articles={articles.slice(4, 7)}
             heading={Categories[8]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={articles.sort(() => Math.random() - 0.5)}
+            articles={articles.slice(6, 9)}
             heading={Categories[9]}
           />
         </div>

@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       ?.value ?? "us";
 
   const dataRes = await fetch(
-    `https://newsapi.org/v2/everything?q=${getSearch}&from=${getDate}&language=${getLanguage}&sortBy=${getSortBy}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`,
+    `https://newsapi.org/v2/everything?q=${getSearch}&from=${getDate}&language=${getLanguage}&sortBy=${getSortBy}&apiKey=${process.env.NEWS_API}`,
   );
 
   // const dataRes = await fetch("https://theviewislandbackend.vercel.app/");
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     return NextResponse.next(new Response("Data not found", { status: 400 }));
   }
 
-  const articles = await validArticles(post.articles, 10, 15);
+  const articles = await validArticles(post.articles, 10, 20);
 
   if (!articles) {
     return NextResponse.next(new Response("Data not found", { status: 400 }));
