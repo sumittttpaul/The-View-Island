@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default async function Search() {
+export default function Search() {
   redirect("/");
 }

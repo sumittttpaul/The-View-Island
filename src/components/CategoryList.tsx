@@ -28,7 +28,7 @@ export default function CategoryList({
                     </h6>
                     <Link
                       href={data.url ?? ""}
-                      className="line-clamp-3 text-ellipsis text-[0.9rem] md:text-lg md:hover:underline md:hover:underline-offset-2"
+                      className="line-clamp-3 h-[4rem] md:h-[5.5rem] text-ellipsis text-[0.9rem] md:text-lg md:hover:underline md:hover:underline-offset-2"
                     >
                       {data.title ?? ""}
                     </Link>
@@ -38,7 +38,7 @@ export default function CategoryList({
                     width={isMobile ? 100 : 125}
                     src={data.urlToImage ?? ""}
                     alt={data.title ?? ""}
-                    className="rounded-xl"
+                    className="rounded-xl object-cover"
                   />
                 </div>
                 <h6 className="flex items-center truncate pt-5 text-xs text-gray-700 md:text-sm">

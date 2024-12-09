@@ -56,7 +56,7 @@ export default function LogoLink() {
     <Link
       href="/"
       onClick={handleClick}
-      className="flex h-full translate-y-1 cursor-pointer select-none items-center font-novante text-2xl font-semibold uppercase text-gray-500/75 no-underline md:text-4xl"
+      className="flex h-full translate-y-1 scale-100 cursor-pointer select-none items-center font-novante text-2xl font-semibold uppercase text-gray-500/75 no-underline transition-all duration-200 ease-in-out active:scale-90 md:text-4xl"
     >
       <span>The</span>
       <span className="px-1 font-semibold tracking-wider text-black">View</span>

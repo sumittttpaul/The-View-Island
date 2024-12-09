@@ -23,7 +23,7 @@ export default function GridCarousel({ articles }: Carousel) {
             <div className="flex h-full w-full flex-col justify-end bg-gradient-to-t from-gray-100 from-55% to-80% px-5 pb-5 md:from-45% md:to-70% 2xl:px-12 2xl:pb-11">
               <Link
                 href={articles[0].url ?? ""}
-                className="line-clamp-3 text-ellipsis text-pretty text-2xl decoration-[rgb(255,40,40)] decoration-2 underline-offset-[0.5rem] md:text-4xl md:leading-[3.5rem] md:hover:underline 2xl:text-5xl 2xl:leading-[4rem]"
+                className="line-clamp-3 text-ellipsis text-pretty text-2xl decoration-[rgb(255,40,40)] decoration-2 underline-offset-[0.6rem] md:text-4xl md:leading-[3.5rem] md:hover:underline 2xl:text-5xl 2xl:leading-[4rem]"
               >
                 <span className="select-none bg-[rgb(255,40,40)] px-2 text-white">
                   {articles[0].title?.split(" ")[0]}
@@ -62,7 +62,7 @@ export default function GridCarousel({ articles }: Carousel) {
               <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-2.5 md:p-5">
                 <Link
                   href={articles[1].url ?? ""}
-                  className="line-clamp-3 text-ellipsis text-pretty text-sm decoration-[rgb(175,90,255)] decoration-2 underline-offset-[0.2rem] hover:underline md:text-xl lg:text-2xl"
+                  className="line-clamp-3 text-ellipsis text-pretty text-sm decoration-[rgb(175,90,255)] decoration-2 underline-offset-[0.25rem] hover:underline md:text-xl lg:text-2xl"
                 >
                   <span className="select-none bg-[rgb(175,90,255)] px-2 text-white">
                     {articles[1].title?.split(" ")[0]}
@@ -99,7 +99,7 @@ export default function GridCarousel({ articles }: Carousel) {
               <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-2.5 md:p-5">
                 <Link
                   href={articles[2].url ?? ""}
-                  className="line-clamp-3 text-ellipsis text-pretty text-sm decoration-[rgb(35,180,144)] decoration-2 underline-offset-[0.2rem] hover:underline md:text-xl lg:text-2xl"
+                  className="line-clamp-3 text-ellipsis text-pretty text-sm decoration-[rgb(35,180,144)] decoration-2 underline-offset-[0.25rem] hover:underline md:text-xl lg:text-2xl"
                 >
                   <span className="select-none bg-[rgb(35,180,144)] px-2 text-white">
                     {articles[2].title?.split(" ")[0]}
@@ -140,7 +140,7 @@ export default function GridCarousel({ articles }: Carousel) {
             <div className="flex h-full w-full flex-col justify-end bg-gradient-to-t from-gray-100 from-45% to-70% p-5">
               <Link
                 href={articles[3].url ?? ""}
-                className="line-clamp-4 text-ellipsis text-pretty text-2xl leading-[2rem] decoration-[rgb(41,141,255)] decoration-2 underline-offset-[0.4rem] hover:underline lg:line-clamp-3 lg:text-3xl lg:leading-[2.75rem] 2xl:text-4xl 2xl:leading-[3rem]"
+                className="line-clamp-4 text-ellipsis text-pretty text-2xl leading-[2rem] decoration-[rgb(41,141,255)] decoration-2 underline-offset-[0.45rem] hover:underline lg:line-clamp-3 lg:text-3xl lg:leading-[2.75rem] 2xl:text-4xl 2xl:leading-[3rem]"
               >
                 <span className="select-none bg-[rgb(41,141,255)] px-2 text-white">
                   {articles[3].title?.split(" ")[0]}
@@ -177,7 +177,7 @@ export default function GridCarousel({ articles }: Carousel) {
                 <div className="flex w-full flex-col">
                   <Link
                     href={articles[4].url ?? ""}
-                    className="line-clamp-1 text-ellipsis text-pretty text-lg leading-[2rem] decoration-[rgb(238,47,174)] decoration-2 underline-offset-[0.2rem] hover:underline xl:text-xl xl:leading-[2.75rem] 2xl:text-2xl"
+                    className="line-clamp-1 text-ellipsis text-pretty text-lg leading-[2rem] decoration-[rgb(238,47,174)] decoration-2 underline-offset-[0.25rem] hover:underline xl:text-xl xl:leading-[2.75rem] 2xl:text-2xl"
                   >
                     <span className="select-none bg-[rgb(238,47,174)] px-2 text-white">
                       {articles[4].title?.split(" ")[0]}
@@ -268,7 +268,7 @@ export default function GridCarousel({ articles }: Carousel) {
               <div className="flex h-full w-full flex-col justify-between bg-gray-100 p-5">
                 <Link
                   href={articles[5].url ?? ""}
-                  className="line-clamp-3 text-ellipsis text-pretty text-xl decoration-[rgb(236,155,48)] decoration-2 underline-offset-[0.2rem] hover:underline lg:text-2xl"
+                  className="line-clamp-3 text-ellipsis text-pretty text-xl decoration-[rgb(236,155,48)] decoration-2 underline-offset-[0.25rem] hover:underline lg:text-2xl"
                 >
                   <span className="select-none bg-[rgb(236,155,48)] px-2 text-white">
                     {articles[5].title?.split(" ")[0]}
@@ -310,7 +310,7 @@ export default function GridCarousel({ articles }: Carousel) {
               <div className="flex h-full w-full flex-col">
                 <Link
                   href={articles[6].url ?? ""}
-                  className="line-clamp-4 text-ellipsis text-pretty text-3xl leading-[2.5rem] decoration-[rgb(29,148,55)] decoration-2 underline-offset-[0.4rem] hover:underline 2xl:line-clamp-3 2xl:text-4xl 2xl:leading-[3rem]"
+                  className="line-clamp-4 text-ellipsis text-pretty text-3xl leading-[2.5rem] decoration-[rgb(29,148,55)] decoration-2 underline-offset-[0.45rem] hover:underline 2xl:line-clamp-3 2xl:text-4xl 2xl:leading-[3rem]"
                 >
                   <span className="select-none bg-[rgb(29,148,55)] px-2 text-white">
                     {articles[6].title?.split(" ")[0]}

@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import useLocalStorage from "utils/LocalStorage";
 import dynamic from "next/dynamic";
+import { useNavStore, useSearchStore } from "utils/Zustand";
 
 const SearchHistory = dynamic<SearchHistory>(() => import("./SearchHistory"), {
   ssr: false,
@@ -14,11 +15,12 @@ const SearchHistory = dynamic<SearchHistory>(() => import("./SearchHistory"), {
 
 export default function SearchBox() {
   const [SearchMenuOpen, setSearchMenuOpen] = useState(false);
-  const [Search, setSearch] = useState("");
-  const SearchRef = useRef<HTMLInputElement>(null);
+  const { setNumber, setWidth, setLeft } = useNavStore();
+  const { Search, setSearch } = useSearchStore();
   const ContainerRef = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
+  const SearchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const { getItem, setItem } = useLocalStorage("recent-search");
 
@@ -34,7 +36,9 @@ export default function SearchBox() {
     params.set("sortBy", "Relevancy");
     params.set("time", new Date().toISOString().slice(0, 10).toString());
     params.set("language", "English");
-    router.push(`/s/${search.replaceAll(" ", "-")}?${params.toString()}`);
+    router.push(`/search/${search.replaceAll(" ", "-")}?${params.toString()}`);
+    setWidth(0);
+    setLeft(0);
     if (getItem()) {
       setItem([
         {
@@ -53,6 +57,7 @@ export default function SearchBox() {
         },
       ]);
     }
+    setNumber(-1);
     SearchRef.current?.blur();
   };
 

@@ -58,7 +58,7 @@ export default function ListButton({ heading }: { heading: string }) {
     <Link
       href={`/${heading}`}
       onClick={handleClick}
-      className="group flex rounded-lg md:py-2.5 md:pl-2.5 md:pr-5 md:transition-all md:duration-200 md:ease-in-out md:hover:bg-gray-200 md:active:scale-90"
+      className="group flex rounded-lg md:py-2.5 md:pl-2.5 md:pr-5 transition-all duration-200 ease-in-out md:hover:bg-gray-200 active:scale-90"
     >
       <h2 className="flex items-center space-x-1 truncate text-base transition-transform duration-200 ease-in-out md:text-xl md:group-hover:translate-x-2">
         <span>{heading}</span>

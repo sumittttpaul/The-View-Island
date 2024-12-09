@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import ResultList from "components/ResultList";
 import SearchFilter from "components/SearchFilter";
 
@@ -18,8 +17,6 @@ export default async function Search(props: props) {
   const time =
     (await searchParams.time) ??
     new Date().toISOString().slice(0, 10).toString();
-
-  if (!search) redirect("/");
 
   const data = await fetch("https://theviewisland.vercel.app/api", {
     method: "POST",

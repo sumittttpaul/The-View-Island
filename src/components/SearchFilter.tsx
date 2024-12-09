@@ -79,7 +79,7 @@ export default function SearchFilter() {
           onClick={() =>
             setOpenFilter((prev) => (prev === "close" ? "open" : "close"))
           }
-          className="flex scale-100 items-center space-x-2 rounded-md bg-gray-100 px-2 py-2 text-sm font-medium transition-all duration-200 ease-in-out md:px-5 md:text-base md:active:scale-90"
+          className="flex scale-100 items-center space-x-2 rounded-md bg-gray-100 px-2 py-2 text-sm font-medium transition-all duration-200 ease-in-out md:px-5 md:text-base active:scale-90"
         >
           <AdjustmentsHorizontalIcon className="size-5" />
           <span>Filter</span>

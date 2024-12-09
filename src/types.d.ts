@@ -36,7 +36,7 @@ type SearchHistory = {
   GetEmptySearch: boolean;
   handleClick: (search: string) => void;
   setSearchMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setSearch: (value: string) => void;
 };
 
 type SearchHistoryList = {

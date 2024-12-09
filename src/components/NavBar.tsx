@@ -23,6 +23,12 @@ export default function NavBar() {
 
   const onClick = (idx: number) => () => {
     if (Number != idx) {
+      const SearchCategory = document.getElementById(
+        `nav-button-id-${idx}`,
+      )?.innerText;
+
+      if (SearchCategory) router.push(`/${SearchCategory.replace(" ", "-")}`);
+
       const PrevButtonWidth = document.getElementById(
         `nav-button-id-${Number}`,
       )?.offsetWidth;
@@ -42,7 +48,6 @@ export default function NavBar() {
         document.getElementById("parent-container")?.clientWidth;
       const ScrollContainer = document.getElementById("nav-container");
       //
-      const Search = document.getElementById(`nav-button-id-${idx}`)?.innerText;
 
       if (
         PrevButtonWidth &&
@@ -51,8 +56,7 @@ export default function NavBar() {
         NewButtonLeft &&
         ScrollContainer &&
         NewButtonViewPortLeft &&
-        ViewPortContainer &&
-        Search
+        ViewPortContainer
       ) {
         if (
           NewButtonViewPortLeft +
@@ -95,7 +99,48 @@ export default function NavBar() {
           );
         }
         setNumber(idx);
-        router.push(`/${Search.replace(" ", "-")}`);
+      } else {
+        const NewButtonRectLeft = document
+          .getElementById(`nav-button-id-${idx}`)
+          ?.getBoundingClientRect()?.left;
+
+        const SearchCategory = document.getElementById(
+          `nav-button-id-${idx}`,
+        )?.innerText;
+
+        if (
+          NewButtonRectLeft &&
+          ScrollContainer &&
+          ViewPortContainer &&
+          NewButtonWidth &&
+          NewButtonLeft &&
+          SearchCategory
+        ) {
+          setNumber(idx);
+          setWidth(NewButtonWidth);
+          setLeft(NewButtonLeft);
+          if (
+            NewButtonRectLeft + (NotMobileScreen ? 100 : 70) >
+            ViewPortContainer
+          ) {
+            ScrollContainer.scrollBy({
+              left:
+                NewButtonRectLeft +
+                NewButtonWidth +
+                (NotMobileScreen ? 125 : 80) -
+                ViewPortContainer -
+                ScrollContainer.scrollLeft,
+              behavior: "smooth",
+            });
+          }
+          if (NewButtonRectLeft - (NotMobileScreen ? 100 : 70) < 0) {
+            ScrollContainer.scrollBy({
+              left: NewButtonRectLeft - (NotMobileScreen ? 100 : 70),
+              behavior: "smooth",
+            });
+          }
+          router.push(`/${SearchCategory.replace(" ", "-")}`);
+        }
       }
     }
   };
@@ -124,7 +169,9 @@ export default function NavBar() {
       document.getElementById("parent-container")?.clientWidth;
 
     if (category) {
-      const idx = Categories.indexOf(category.toString().replaceAll("-", " "));
+      const idx = Categories.indexOf(
+        category.toString().replaceAll("-", " ").replaceAll("%20", " "),
+      );
       const CurrentButtonLeft = document
         .getElementById(`nav-button-id-${idx}`)
         ?.getBoundingClientRect()?.left;

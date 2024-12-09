@@ -43,6 +43,7 @@ img::selection {
 
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
+    -webkit-appearance: none;
     display: block;
     width: 8px;
     transition: all 1s ease 0s;
@@ -56,6 +57,7 @@ img::selection {
   }
   ::-webkit-scrollbar-track {
     background: transparent;
+    width: 8px;
   }
   ::-webkit-scrollbar-thumb:active {
     border: 0;

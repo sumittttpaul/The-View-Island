@@ -39,7 +39,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${Novante.variable} overflow-x-hidden antialiased`}
+        className={`${inter.className} ${Novante.variable} overflow-y-scroll antialiased`}
       >
         <MotionOptimize>
           <Suspense>

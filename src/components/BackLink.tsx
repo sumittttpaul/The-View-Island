@@ -1,12 +1,13 @@
 "use client";
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { useNavStore, useSearchStore } from "utils/Zustand";
 import { useMediaQuery } from "@mui/material";
 import Link from "next/link";
-import { useNavStore } from "utils/Zustand";
 
 export default function BackLink() {
   const { setNumber, setWidth, setLeft } = useNavStore();
+  const { setSearch } = useSearchStore();
   const NotMobileScreen = useMediaQuery("(min-width:768px)");
 
   const handleClick = () => {
@@ -51,13 +52,14 @@ export default function BackLink() {
         });
       }
     }
+    setSearch("");
   };
 
   return (
     <Link
       href="/"
       onClick={handleClick}
-      className="flex -translate-x-2.5 scale-100 items-center space-x-2.5 rounded-lg p-2.5 text-blue-550 transition-all duration-200 ease-in-out md:hover:translate-x-0 md:hover:bg-gray-100 md:active:scale-90"
+      className="flex -translate-x-2.5 scale-100 items-center space-x-2.5 rounded-lg p-2.5 text-blue-550 transition-all duration-200 ease-in-out active:scale-90 md:hover:translate-x-0 md:hover:bg-gray-100"
     >
       <ChevronLeftIcon className="h-4 w-4 stroke-[3] md:h-5 md:w-5" />
       <span className="text-xs font-semibold md:text-base">Back to home</span>
