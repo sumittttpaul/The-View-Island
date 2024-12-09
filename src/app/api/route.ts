@@ -17,11 +17,11 @@ export async function POST(request: Request) {
     language.find(async (o) => o.name === (await searchParam.language))
       ?.value ?? "us";
 
-  const dataRes = await fetch(
-    `https://newsapi.org/v2/everything?q=${getSearch}&from=${getDate}&language=${getLanguage}&sortBy=${getSortBy}&apiKey=${process.env.NEWS_API}`,
-  );
+  // const dataRes = await fetch(
+  //   `https://newsapi.org/v2/everything?q=${getSearch}&from=${getDate}&language=${getLanguage}&sortBy=${getSortBy}&apiKey=${process.env.NEWS_API}`,
+  // );
 
-  // const dataRes = await fetch("https://theviewislandbackend.vercel.app/");
+  const dataRes = await fetch("https://theviewislandbackend.vercel.app/");
 
   if (!dataRes.ok) {
     return NextResponse.next(new Response("Data not found", { status: 400 }));
