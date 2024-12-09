@@ -1,8 +1,9 @@
 import Carousel from "components/Carousel";
-import { getFetchUrl } from "utils/Utility";
+import { Categories, getFetchUrl } from "utils/Utility";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import CategoryList from "components/CategoryList";
 
 type props = {
   searchParams: Promise<SearchParams>;
@@ -11,12 +12,23 @@ type props = {
 export default async function Home(props: props) {
   const searchParams = await props.searchParams;
   const viewport = searchParams.viewport ?? ("desktop" as string);
+  const sortBy = searchParams.sortBy ?? ("Relevancy" as string);
+  const language = searchParams.language ?? ("English" as string);
   const isMobile = viewport === "mobile" ? true : false;
+  const time =
+    searchParams.time ?? new Date().toISOString().slice(0, 10).toString();
 
   const data = await fetch(getFetchUrl("api"), {
     method: "POST",
-    body: JSON.stringify({ ...searchParams, q: "latest" }),
+    body: JSON.stringify({
+      sortBy: sortBy,
+      time: time,
+      language: language,
+      viewport: viewport,
+      q: "latest",
+    }),
   });
+
   const articles = (await data.json()) as Articles[];
 
   return (
@@ -35,38 +47,38 @@ export default async function Home(props: props) {
             <QuestionMarkCircleIcon className="h-4 w-4 text-gray-600 md:h-5 md:w-5" />
           </p>
         </div>
-        {/* <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <CategoryList
             isMobile={isMobile}
-            articles={newArticles}
+            articles={articles}
             heading={Categories[4]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={newArticles}
+            articles={articles}
             heading={Categories[5]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={newArticles}
+            articles={articles}
             heading={Categories[6]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={newArticles}
+            articles={articles}
             heading={Categories[7]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={newArticles}
+            articles={articles}
             heading={Categories[8]}
           />
           <CategoryList
             isMobile={isMobile}
-            articles={newArticles}
+            articles={articles}
             heading={Categories[9]}
           />
-        </div> */}
+        </div>
       </section>
       <section className="flex w-full items-center justify-center space-x-1 py-7">
         <Link

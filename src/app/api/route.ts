@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { validArticles } from "utils/Utility";
+import { language, sortBy, validArticles } from "utils/Utility";
 
 export async function POST(request: Request) {
   const { ...params } = await request.json();
@@ -11,25 +11,20 @@ export async function POST(request: Request) {
   if (!searchParam.q)
     return NextResponse.next(new Response("Missing search", { status: 400 }));
 
-  if (!searchParam.sortBy)
-    return NextResponse.next(new Response("Missing sort by", { status: 400 }));
+  const getSearch = searchParam.q ?? "latest";
+  const getDate = searchParam.time ?? new Date().toISOString().slice(0, 10);
+  const getSortBy =
+    sortBy.find(async (o) => o.name === (await searchParam.q))?.value ??
+    "relevancy";
+  const getLanguage =
+    language.find(async (o) => o.name === (await searchParam.language))
+      ?.value ?? "us";
 
-  if (!searchParam.language)
-    return NextResponse.next(new Response("Missing language", { status: 400 }));
-
-  if (!searchParam.time)
-    return NextResponse.next(new Response("Missing time", { status: 400 }));
-
-  // const data = await fetch(
-  //   `https://newsapi.org/v2/everything?q=india&from=2024-12-07&language=en&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`,
+  // const dataRes = await fetch(
+  //   `https://newsapi.org/v2/everything?q=${getSearch}&from=${getDate}&language=${getLanguage}&sortBy=${getSortBy}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`,
   // );
 
   const dataRes = await fetch("https://theviewislandbackend.vercel.app/");
-
-  console.log(searchParam.sortBy);
-  console.log(searchParam.time);
-  console.log(searchParam.language);
-  console.log(searchParam.q);
 
   if (!dataRes.ok) {
     return NextResponse.next(new Response("Data not found", { status: 400 }));

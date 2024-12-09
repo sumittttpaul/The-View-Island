@@ -13,12 +13,23 @@ type props = {
 export default async function Search(props: props) {
   const searchParams = await props.searchParams;
   const search = (await props.params).search;
+  const viewport = searchParams.viewport ?? ("desktop" as string);
+  const sortBy = searchParams.sortBy ?? ("Relevancy" as string);
+  const language = searchParams.language ?? ("English" as string);
+  const time =
+    searchParams.time ?? new Date().toISOString().slice(0, 10).toString();
 
   if (!search) redirect("/");
 
   const data = await fetch(getFetchUrl("api"), {
     method: "POST",
-    body: JSON.stringify({ ...searchParams, q: search }),
+    body: JSON.stringify({
+      sortBy: sortBy,
+      time: time,
+      language: language,
+      viewport: viewport,
+      q: search,
+    }),
   });
   const articles = (await data.json()) as Articles[];
 

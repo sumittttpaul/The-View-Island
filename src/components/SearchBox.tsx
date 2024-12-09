@@ -33,7 +33,7 @@ export default function SearchBox() {
     const params = new URLSearchParams(searchParams);
     params.set("sortBy", "Relevancy");
     params.set("time", new Date().toISOString().slice(0, 10).toString());
-    params.set("language", "english");
+    params.set("language", "English");
     router.push(`/s/${search.replaceAll(" ", "-")}?${params.toString()}`);
     if (getItem()) {
       setItem([

@@ -11,10 +11,12 @@ type SearchParams = {
 type Articles = {
   author: string | undefined;
   content: string | undefined;
-  source: {
-    id: string | undefined;
-    name: string | undefined;
-  };
+  source:
+    | {
+        id: string | undefined;
+        name: string | undefined;
+      }
+    | undefined;
   title: string | undefined;
   description: string | undefined;
   url: string | undefined;

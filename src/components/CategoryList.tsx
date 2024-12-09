@@ -24,13 +24,13 @@ export default function CategoryList({
                 <div className="flex w-full space-x-5">
                   <div className="flex w-full flex-col">
                     <h6 className="text-[0.8rem] font-semibold text-gray-400 md:text-base">
-                      {data.source.name}
+                      {data?.source?.name ?? ""}
                     </h6>
                     <Link
                       href={data.url ?? ""}
                       className="line-clamp-3 text-ellipsis text-[0.9rem] md:text-lg md:hover:underline md:hover:underline-offset-2"
                     >
-                      {data.title}
+                      {data.title ?? ""}
                     </Link>
                   </div>
                   <Image
@@ -48,13 +48,13 @@ export default function CategoryList({
                   {data.author && data.author.length > 0 && (
                     <>
                       <span className="mx-1 md:mx-2">•</span>
-                      <span className="font-semibold">{data.author}</span>
+                      <span className="font-semibold">{data.author ?? ""}</span>
                     </>
                   )}
                 </h6>
               </li>
               {idx < 2 && (
-                <li key={idx * 4} className="flex w-full md:px-2.5">
+                <li key={idx + 5} className="flex w-full md:px-2.5">
                   <span className="flex h-0.5 w-full bg-gray-200" />
                 </li>
               )}

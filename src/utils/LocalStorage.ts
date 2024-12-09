@@ -3,7 +3,7 @@ export default function useLocalStorage(key: string) {
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -12,7 +12,7 @@ export default function useLocalStorage(key: string) {
       const value = window.localStorage.getItem(key);
       if (value) return JSON.parse(value);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -20,7 +20,7 @@ export default function useLocalStorage(key: string) {
     try {
       window.localStorage.removeItem(key);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 

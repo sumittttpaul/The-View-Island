@@ -31,7 +31,9 @@ export default function ResultList({ articles }: Carousel) {
                   {data.author && data.author.length > 0 && (
                     <>
                       <span className="mx-1 md:mx-2">•</span>
-                      <span className="font-semibold truncate">{data.author}</span>
+                      <span className="truncate font-semibold">
+                        {data.author}
+                      </span>
                     </>
                   )}
                 </h6>
@@ -41,14 +43,14 @@ export default function ResultList({ articles }: Carousel) {
                 <div className="flex w-full flex-col space-y-2.5 md:space-y-5">
                   <div className="flex w-full flex-col space-y-3">
                     <h6 className="text-sm font-semibold text-gray-600">
-                      {data.source.name}
+                      {data?.source?.name ?? ""}
                     </h6>
                     <p className="line-clamp-3 text-ellipsis text-[0.9375rem] md:text-xl">
-                      {data.description}
+                      {data.description ?? ""}
                     </p>
                   </div>
                   <p className="line-clamp-5 text-ellipsis text-xs leading-5 text-gray-500 md:text-base">
-                    {data.content}
+                    {data.content ?? ""}
                   </p>
                 </div>
                 <div className="flex w-full items-center justify-end space-x-1 md:space-x-2.5">
