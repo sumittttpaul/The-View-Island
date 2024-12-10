@@ -13,13 +13,13 @@ export default function ResultList({ articles }: Carousel) {
               href={data.url ?? ""}
               className="group flex w-full flex-col space-y-5 rounded-xl bg-gray-100 p-2.5 md:flex-row md:space-x-10 md:space-y-0 md:rounded-2xl md:p-5"
             >
-              <div className="flex w-full flex-col space-y-2.5 md:max-w-[300px] md:space-y-5">
+              <div className="flex w-full flex-col space-y-2.5 md:max-w-[18.75rem] md:space-y-5">
                 <Image
                   height={300}
                   width={300}
                   src={data.urlToImage ?? ""}
                   alt={data.title ?? ""}
-                  className="w-full rounded-xl object-cover md:max-h-[150px] md:min-h-[150px] md:min-w-[300px] md:max-w-[300px] md:rounded-2xl"
+                  className="w-full rounded-xl object-cover md:max-h-[9.375rem] md:min-h-[9.375rem] md:min-w-[18.75rem] md:max-w-[18.75rem] md:rounded-2xl"
                 />
                 <h2 className="line-clamp-3 text-ellipsis text-base md:text-xl md:group-hover:underline md:group-hover:underline-offset-4">
                   {data.title}

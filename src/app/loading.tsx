@@ -6,13 +6,13 @@ export default function Loading() {
           return (
             <span
               key={i}
-              className="h-[55px] w-[125px] rounded-lg md:h-[75px] md:w-[200px] md:rounded-2xl bg-gray-200"
+              className="h-[3.438rem] w-[7.813rem] rounded-lg bg-gray-200 md:h-[4.688rem] md:w-[12.5rem] md:rounded-2xl"
             />
           );
         })}
       </div>
       <div className="flex w-full flex-col">
-        <span className="h-[288px] w-full rounded-lg md:h-[880px] md:rounded-2xl bg-gray-200" />
+        <span className="h-[18rem] w-full rounded-lg bg-gray-200 md:h-[55rem] md:rounded-2xl" />
       </div>
       {[...Array(3)].map((o, i) => {
         return (
@@ -21,10 +21,10 @@ export default function Loading() {
               key={i}
               className="flex w-full justify-between pb-1 pt-1 md:pb-0 md:pt-5"
             >
-              <span className="h-[55px] w-[125px] rounded-lg md:h-[75px] md:w-[200px] md:rounded-2xl bg-gray-200" />
+              <span className="h-[3.438rem] w-[7.813rem] rounded-lg bg-gray-200 md:h-[4.688rem] md:w-[12.5rem] md:rounded-2xl" />
             </div>
             <div key={i + 3} className="flex w-full flex-col">
-              <span className="h-[520px] w-full rounded-lg md:h-[880px] md:rounded-2xl bg-gray-200" />
+              <span className="h-[32.5rem] w-full rounded-lg bg-gray-200 md:h-[55rem] md:rounded-2xl" />
             </div>
           </>
         );
