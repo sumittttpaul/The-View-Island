@@ -31,6 +31,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const NextFont = `${inter.className} ${Novante.variable}`;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -38,14 +40,12 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} ${Novante.variable} overflow-y-scroll antialiased`}
-      >
+      <body className={`${NextFont} overflow-y-scroll antialiased`}>
         <MotionOptimize>
           <Suspense>
             <Header />
           </Suspense>
-          {children}
+          <main id="page-id">{children}</main>
         </MotionOptimize>
       </body>
     </html>

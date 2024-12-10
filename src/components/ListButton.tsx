@@ -8,7 +8,7 @@ import { useNavStore } from "utils/Zustand";
 
 export default function ListButton({ heading }: { heading: string }) {
   const { setNumber, setWidth, setLeft } = useNavStore();
-  const NotMobileScreen = useMediaQuery("(min-width:768px)");
+  const isDesktop = useMediaQuery("(min-width:768px)");
 
   const handleClick = () => {
     const ScrollContainer = document.getElementById("nav-container");
@@ -31,23 +31,20 @@ export default function ListButton({ heading }: { heading: string }) {
       setNumber(idx);
       setWidth(CurrentButton.clientWidth);
       setLeft(CurrentButton.offsetLeft);
-      if (
-        CurrentButtonLeft + (NotMobileScreen ? 100 : 70) >
-        ViewPortContainer
-      ) {
+      if (CurrentButtonLeft + (isDesktop ? 100 : 70) > ViewPortContainer) {
         ScrollContainer.scrollBy({
           left:
             CurrentButtonLeft +
             CurrentButton.clientWidth +
-            (NotMobileScreen ? 125 : 80) -
+            (isDesktop ? 125 : 80) -
             ViewPortContainer -
             ScrollContainer.scrollLeft,
           behavior: "smooth",
         });
       }
-      if (CurrentButtonLeft - (NotMobileScreen ? 100 : 70) < 0) {
+      if (CurrentButtonLeft - (isDesktop ? 100 : 70) < 0) {
         ScrollContainer.scrollBy({
-          left: CurrentButtonLeft - (NotMobileScreen ? 100 : 70),
+          left: CurrentButtonLeft - (isDesktop ? 100 : 70),
           behavior: "smooth",
         });
       }
@@ -58,7 +55,7 @@ export default function ListButton({ heading }: { heading: string }) {
     <Link
       href={`/${heading}`}
       onClick={handleClick}
-      className="group flex rounded-lg md:py-2.5 md:pl-2.5 md:pr-5 transition-all duration-200 ease-in-out md:hover:bg-gray-200 active:scale-90"
+      className="group flex rounded-lg transition-all duration-200 ease-in-out active:scale-90 md:py-2.5 md:pl-2.5 md:pr-5 md:hover:bg-gray-200"
     >
       <h2 className="flex items-center space-x-1 truncate text-base transition-transform duration-200 ease-in-out md:text-xl md:group-hover:translate-x-2">
         <span>{heading}</span>

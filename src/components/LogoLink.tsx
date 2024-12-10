@@ -6,7 +6,7 @@ import { useNavStore } from "utils/Zustand";
 
 export default function LogoLink() {
   const { setNumber, setWidth, setLeft } = useNavStore();
-  const NotMobileScreen = useMediaQuery("(min-width:768px)");
+  const isDesktop = useMediaQuery("(min-width:768px)");
 
   const handleClick = () => {
     const ScrollContainer = document.getElementById("nav-container");
@@ -29,23 +29,20 @@ export default function LogoLink() {
       setNumber(idx);
       setWidth(CurrentButton.clientWidth);
       setLeft(CurrentButton.offsetLeft);
-      if (
-        CurrentButtonLeft + (NotMobileScreen ? 100 : 70) >
-        ViewPortContainer
-      ) {
+      if (CurrentButtonLeft + (isDesktop ? 100 : 70) > ViewPortContainer) {
         ScrollContainer.scrollBy({
           left:
             CurrentButtonLeft +
             CurrentButton.clientWidth +
-            (NotMobileScreen ? 125 : 80) -
+            (isDesktop ? 125 : 80) -
             ViewPortContainer -
             ScrollContainer.scrollLeft,
           behavior: "smooth",
         });
       }
-      if (CurrentButtonLeft - (NotMobileScreen ? 100 : 70) < 0) {
+      if (CurrentButtonLeft - (isDesktop ? 100 : 70) < 0) {
         ScrollContainer.scrollBy({
-          left: CurrentButtonLeft - (NotMobileScreen ? 100 : 70),
+          left: CurrentButtonLeft - (isDesktop ? 100 : 70),
           behavior: "smooth",
         });
       }

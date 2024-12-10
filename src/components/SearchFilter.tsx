@@ -21,6 +21,8 @@ export default function SearchFilter() {
 
   const params = new URLSearchParams(searchParams);
 
+  const isDesktop = useMediaQuery("(min-width:768px)");
+
   const sortChange = (value: { id: number; name: string; value: string }) => {
     params.set("sortBy", value.value);
     router.push(`${pathname}?${params.toString()}`);
@@ -56,17 +58,17 @@ export default function SearchFilter() {
     name: string;
     value: string;
   }) => {
+    params.set("language", value.value);
+    router.push(`${pathname}?${params.toString()}`);
     setLanguageSelect(value);
   };
-
-  const NotMobileScreen = useMediaQuery("(min-width:768px)");
 
   const variants: Variants = {
     close: {
       height: 0,
     },
     open: {
-      height: NotMobileScreen ? 90 : 190,
+      height: isDesktop ? 90 : 190,
     },
   };
 
@@ -79,7 +81,7 @@ export default function SearchFilter() {
           onClick={() =>
             setOpenFilter((prev) => (prev === "close" ? "open" : "close"))
           }
-          className="flex scale-100 items-center space-x-2 rounded-md bg-gray-100 px-2 py-2 text-sm font-medium transition-all duration-200 ease-in-out md:px-5 md:text-base active:scale-90"
+          className="flex scale-100 items-center space-x-2 rounded-md bg-gray-100 px-2 py-2 text-sm font-medium transition-all duration-200 ease-in-out active:scale-90 md:px-5 md:text-base"
         >
           <AdjustmentsHorizontalIcon className="size-5" />
           <span>Filter</span>

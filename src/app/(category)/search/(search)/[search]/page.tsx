@@ -32,10 +32,7 @@ export default async function Search(props: props) {
   const articles = (await data.json()) as Articles[];
 
   return (
-    <main
-      id="page-id"
-      className="m-0 mx-auto flex w-full max-w-[70rem] flex-col p-0 py-5"
-    >
+    <div className="m-0 mx-auto flex w-full max-w-[70rem] flex-col p-0 py-5">
       <SearchFilter />
       <section className="z-10 flex w-full flex-col space-y-5 bg-white px-2.5 md:space-y-7 md:px-5 md:pt-7">
         <div className="flex flex-col px-2.5 md:px-0">
@@ -48,6 +45,6 @@ export default async function Search(props: props) {
         </div>
         <ResultList articles={articles} />
       </section>
-    </main>
+    </div>
   );
 }

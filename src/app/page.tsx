@@ -37,7 +37,7 @@ export default async function Home(props: props) {
   const articles = (await data.json()) as Articles[];
 
   return (
-    <main
+    <div
       id="page-id"
       className="m-0 mx-auto flex w-full max-w-[110rem] flex-col p-0"
     >
@@ -105,6 +105,6 @@ export default async function Home(props: props) {
           </p>
         </Link>
       </section>
-    </main>
+    </div>
   );
 }

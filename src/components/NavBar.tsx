@@ -1,11 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
+import { MotionSpan } from "utils/Motion";
+import { Categories } from "utils/Utility";
+import { useNavStore } from "utils/Zustand";
 import { useMediaQuery } from "@mui/material";
 import { useRouter, useParams } from "next/navigation";
-import { useEffect } from "react";
-import { Categories } from "utils/Utility";
-import { MotionSpan } from "utils/Motion";
-import { useNavStore } from "utils/Zustand";
 
 export default function NavBar() {
   const { Number, Width, Left, setNumber, setWidth, setLeft } = useNavStore();
@@ -14,7 +14,13 @@ export default function NavBar() {
 
   const { category } = params;
 
-  const NotMobileScreen = useMediaQuery("(min-width:768px)");
+  const isDesktop = useMediaQuery("(min-width:768px)");
+  const AdjustSize = isDesktop ? 100 : 70;
+  const AdjustDSize = isDesktop ? 125 : 80;
+
+  const getElement = (id: string) => document.getElementById(id);
+  const getCategory = (category: string | string[]) =>
+    category.toString().replaceAll("-", " ").replaceAll("%20", " ");
 
   const variants = {
     initial: { width: 0, left: 0 },
@@ -23,205 +29,95 @@ export default function NavBar() {
 
   const onClick = (idx: number) => () => {
     if (Number != idx) {
-      const SearchCategory = document.getElementById(
-        `nav-button-id-${idx}`,
-      )?.innerText;
+      const PrevButton = getElement(`nav-button-id-${Number}`);
+      const NewButton = getElement(`nav-button-id-${idx}`);
+      const ContainerView = getElement("parent-container");
+      const ScrollContainer = getElement("nav-container");
 
-      if (SearchCategory) router.push(`/${SearchCategory.replace(" ", "-")}`);
-
-      const PrevButtonWidth = document.getElementById(
-        `nav-button-id-${Number}`,
-      )?.offsetWidth;
-      const PrevButtonLeft = document.getElementById(
-        `nav-button-id-${Number}`,
-      )?.offsetLeft;
-      const NewButtonWidth = document.getElementById(
-        `nav-button-id-${idx}`,
-      )?.offsetWidth;
-      const NewButtonLeft = document.getElementById(
-        `nav-button-id-${idx}`,
-      )?.offsetLeft;
-      const NewButtonViewPortLeft = document
-        .getElementById(`nav-button-id-${idx}`)
-        ?.getBoundingClientRect()?.left;
-      const ViewPortContainer =
-        document.getElementById("parent-container")?.clientWidth;
-      const ScrollContainer = document.getElementById("nav-container");
-      //
-
-      if (
-        PrevButtonWidth &&
-        NewButtonWidth &&
-        PrevButtonLeft &&
-        NewButtonLeft &&
-        ScrollContainer &&
-        NewButtonViewPortLeft &&
-        ViewPortContainer
-      ) {
-        if (
-          NewButtonViewPortLeft +
-            NewButtonWidth +
-            (NotMobileScreen ? 100 : 70) >
-          ViewPortContainer
-        ) {
-          ScrollContainer.scrollBy({
-            left:
-              NewButtonLeft +
-              NewButtonWidth +
-              (NotMobileScreen ? 125 : 80) -
-              ViewPortContainer -
-              ScrollContainer.scrollLeft,
-            behavior: "smooth",
-          });
-        }
-        if (NewButtonViewPortLeft - (NotMobileScreen ? 100 : 70) < 0) {
-          ScrollContainer.scrollBy({
-            left: NewButtonViewPortLeft - (NotMobileScreen ? 100 : 70),
-            behavior: "smooth",
-          });
-        }
-        if (Number < idx) {
-          setLeft(PrevButtonLeft + PrevButtonWidth / 2);
-          setWidth(
-            NewButtonWidth / 2 +
-              NewButtonLeft -
-              PrevButtonLeft -
-              PrevButtonWidth / 2,
-          );
-        }
-        if (Number > idx) {
-          setLeft(NewButtonLeft + NewButtonWidth / 2);
-          setWidth(
-            PrevButtonLeft -
-              NewButtonLeft +
-              PrevButtonWidth / 2 -
-              NewButtonWidth / 2,
-          );
-        }
-        setNumber(idx);
-      } else {
-        const NewButtonRectLeft = document
-          .getElementById(`nav-button-id-${idx}`)
-          ?.getBoundingClientRect()?.left;
-
-        const SearchCategory = document.getElementById(
-          `nav-button-id-${idx}`,
-        )?.innerText;
-
-        if (
-          NewButtonRectLeft &&
-          ScrollContainer &&
-          ViewPortContainer &&
-          NewButtonWidth &&
-          NewButtonLeft &&
-          SearchCategory
-        ) {
+      if (NewButton && ScrollContainer && ContainerView) {
+        const NewButtonView = NewButton.getBoundingClientRect();
+        if (PrevButton) {
           setNumber(idx);
-          setWidth(NewButtonWidth);
-          setLeft(NewButtonLeft);
+          if (Number < idx) {
+            setLeft(PrevButton.offsetLeft + PrevButton.offsetWidth / 2);
+            setWidth(
+              NewButton.offsetWidth / 2 +
+                NewButton.offsetLeft -
+                PrevButton.offsetLeft -
+                PrevButton.offsetWidth / 2,
+            );
+          }
+          if (Number > idx) {
+            setLeft(NewButton.offsetLeft + NewButton.offsetWidth / 2);
+            setWidth(
+              PrevButton.offsetLeft -
+                NewButton.offsetLeft +
+                PrevButton.offsetWidth / 2 -
+                NewButton.offsetWidth / 2,
+            );
+          }
           if (
-            NewButtonRectLeft + (NotMobileScreen ? 100 : 70) >
-            ViewPortContainer
+            NewButtonView.left + NewButton.offsetWidth + AdjustSize >
+            ContainerView.clientWidth
           ) {
             ScrollContainer.scrollBy({
               left:
-                NewButtonRectLeft +
-                NewButtonWidth +
-                (NotMobileScreen ? 125 : 80) -
-                ViewPortContainer -
+                NewButton.offsetLeft +
+                NewButton.offsetWidth +
+                AdjustDSize -
+                ContainerView.clientWidth -
                 ScrollContainer.scrollLeft,
               behavior: "smooth",
             });
           }
-          if (NewButtonRectLeft - (NotMobileScreen ? 100 : 70) < 0) {
+          if (NewButtonView.left - AdjustSize < 0) {
             ScrollContainer.scrollBy({
-              left: NewButtonRectLeft - (NotMobileScreen ? 100 : 70),
+              left: NewButtonView.left - AdjustSize,
               behavior: "smooth",
             });
           }
-          router.push(`/${SearchCategory.replace(" ", "-")}`);
+        } else {
+          setNumber(idx);
+          setWidth(NewButton.offsetWidth);
+          setLeft(NewButton.offsetLeft);
+          if (NewButtonView.left + AdjustSize > ContainerView.clientWidth) {
+            ScrollContainer.scrollBy({
+              left:
+                NewButtonView.left +
+                NewButton.offsetWidth +
+                AdjustDSize -
+                ContainerView.clientWidth -
+                ScrollContainer.scrollLeft,
+              behavior: "smooth",
+            });
+          }
+          if (NewButtonView.left - AdjustSize < 0) {
+            ScrollContainer.scrollBy({
+              left: NewButtonView.left - AdjustSize,
+              behavior: "smooth",
+            });
+          }
         }
+        router.push(`/${NewButton.innerText.replace(" ", "-")}`);
       }
     }
   };
 
   const onAnimationComplete = () => {
-    const ButtonWidth = document.getElementById(
-      `nav-button-id-${Number}`,
-    )?.offsetWidth;
-    const ButtonLeft = document.getElementById(
-      `nav-button-id-${Number}`,
-    )?.offsetLeft;
-    if (
-      ButtonWidth &&
-      ButtonLeft &&
-      ButtonLeft != Left &&
-      ButtonWidth != Width
-    ) {
-      setLeft(ButtonLeft);
-      setWidth(ButtonWidth);
+    const Button = getElement(`nav-button-id-${Number}`);
+    if (Button) {
+      if (Button.offsetLeft != Left && Button.offsetWidth != Width) {
+        setLeft(Button.offsetLeft);
+        setWidth(Button.offsetWidth);
+      }
     }
   };
 
   useEffect(() => {
-    const ScrollContainer = document.getElementById("nav-container");
-    const ViewPortContainer =
-      document.getElementById("parent-container")?.clientWidth;
-
-    if (category) {
-      const idx = Categories.indexOf(
-        category.toString().replaceAll("-", " ").replaceAll("%20", " "),
-      );
-      const CurrentButtonLeft = document
-        .getElementById(`nav-button-id-${idx}`)
-        ?.getBoundingClientRect()?.left;
-      const CurrentButton = document.getElementById(`nav-button-id-${idx}`);
-
-      if (
-        CurrentButtonLeft &&
-        ScrollContainer &&
-        ViewPortContainer &&
-        CurrentButton
-      ) {
-        setNumber(idx);
-        setWidth(CurrentButton.clientWidth);
-        setLeft(CurrentButton.offsetLeft);
-        if (
-          CurrentButtonLeft + (NotMobileScreen ? 100 : 70) >
-          ViewPortContainer
-        ) {
-          ScrollContainer.scrollBy({
-            left:
-              CurrentButtonLeft +
-              CurrentButton.clientWidth +
-              (NotMobileScreen ? 125 : 80) -
-              ViewPortContainer -
-              ScrollContainer.scrollLeft,
-            behavior: "smooth",
-          });
-        }
-        if (CurrentButtonLeft - (NotMobileScreen ? 100 : 70) < 0) {
-          ScrollContainer.scrollBy({
-            left: CurrentButtonLeft - (NotMobileScreen ? 100 : 70),
-            behavior: "smooth",
-          });
-        }
-      }
-    } else {
-      const firstButton = document.getElementById(`nav-button-id-${0}`);
-      if (firstButton) {
-        setNumber(0);
-        setWidth(firstButton.clientWidth);
-        setLeft(firstButton.offsetLeft);
-      }
-    }
-
-    //
-
-    const container = document.getElementById("nav-container");
-    const navBar = document.getElementById("parent-container");
-    const page = document.getElementById("page-id");
-
+    const container = getElement("nav-container");
+    const navBar = getElement("parent-container");
+    const page = getElement("page-id");
+    const Document = document.body;
     const properties = { passive: true };
 
     if (container && navBar && page) {
@@ -236,21 +132,19 @@ export default function NavBar() {
         });
       };
       const onMouseEnter = () => {
-        if (document.body.clientWidth > 768) {
-          document.body.style.overflow = "hidden";
-          document.body.style.paddingRight = "8px";
-          if (window.scrollY > 57) navBar.style.paddingRight = "8px";
+        if (Document.clientWidth > 768) {
+          Document.style.overflow = "hidden";
+          Document.style.paddingRight = "8px";
         }
       };
       const onMouseExit = () => {
-        if (document.body.clientWidth > 768) {
-          document.body.style.overflow = "auto";
-          document.body.style.paddingRight = "0px";
-          navBar.style.paddingRight = "0px";
+        if (Document.clientWidth > 768) {
+          Document.style.overflow = "auto";
+          Document.style.paddingRight = "0px";
         }
       };
-      const stickNav = () => {
-        if (document.body.clientWidth > 768) {
+      const stickyNav = () => {
+        if (Document.clientWidth > 768) {
           if (window.scrollY > 57) {
             navBar.style.position = "fixed";
             page.style.paddingTop = "57px";
@@ -272,14 +166,53 @@ export default function NavBar() {
       container.addEventListener("wheel", onWheel, properties);
       container.addEventListener("mouseenter", onMouseEnter, properties);
       container.addEventListener("mouseleave", onMouseExit, properties);
-      window.addEventListener("scroll", stickNav, properties);
+      window.addEventListener("scroll", stickyNav, properties);
 
       return () => {
         container.removeEventListener("wheel", onWheel);
         container.removeEventListener("mouseenter", onMouseEnter);
         container.removeEventListener("mouseleave", onMouseExit);
-        window.removeEventListener("scroll", stickNav);
+        window.removeEventListener("scroll", stickyNav);
       };
+    }
+  }, []);
+
+  useEffect(() => {
+    const ScrollContainer = getElement("nav-container");
+    const ContainerView = getElement("parent-container");
+    const PreviousButton = getElement(`nav-button-id-${0}`);
+
+    if (category) {
+      const idx = Categories.indexOf(getCategory(category));
+      const NewButton = getElement(`nav-button-id-${idx}`);
+
+      if (NewButton && ScrollContainer && ContainerView) {
+        const NewButtonView = NewButton.getBoundingClientRect();
+        setNumber(idx);
+        setWidth(NewButton.clientWidth);
+        setLeft(NewButton.offsetLeft);
+        if (NewButtonView.left + AdjustSize > ContainerView.clientWidth) {
+          ScrollContainer.scrollBy({
+            left:
+              NewButtonView.left +
+              NewButton.clientWidth +
+              AdjustDSize -
+              ContainerView.clientWidth -
+              ScrollContainer.scrollLeft,
+            behavior: "smooth",
+          });
+        }
+        if (NewButtonView.left - AdjustSize < 0) {
+          ScrollContainer.scrollBy({
+            left: NewButtonView.left - AdjustSize,
+            behavior: "smooth",
+          });
+        }
+      }
+    } else if (PreviousButton) {
+      setNumber(0);
+      setWidth(PreviousButton.clientWidth);
+      setLeft(PreviousButton.offsetLeft);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -301,7 +234,7 @@ export default function NavBar() {
                 key={i}
                 onClick={onClick(i)}
                 id={`nav-button-id-${i}`}
-                className={`${Number === i ? "text-blue-550" : NotMobileScreen ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
+                className={`${Number === i ? "text-blue-550" : isDesktop ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
               >
                 {data}
               </li>
@@ -314,7 +247,7 @@ export default function NavBar() {
                 key={i + 4}
                 id={`nav-button-id-${i + 4}`}
                 onClick={onClick(i + 4)}
-                className={`${Number === i + 4 ? "text-blue-550" : NotMobileScreen ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
+                className={`${Number === i + 4 ? "text-blue-550" : isDesktop ? "text-black/60 hover:text-black" : "text-black/60"} cursor-pointer select-none whitespace-nowrap font-semibold transition-colors duration-300 ease-in-out`}
               >
                 {data}
               </li>
