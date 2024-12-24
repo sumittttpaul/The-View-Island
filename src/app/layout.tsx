@@ -20,8 +20,8 @@ const Novante = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "The View Island | Code by Sumeet",
-  description: "Latest articles in one place - Code by Sumeet",
+  title: "The View Island • Sumeet Kumar Paul",
+  description: "Latest articles in one place • Sumeet Kumar Paul",
 };
 
 export const viewport: Viewport = {
