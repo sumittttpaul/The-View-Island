@@ -37,9 +37,9 @@ These are all the framework and libraries that has been used to build this proje
 10. Dev - Prettier, Postcss, Eslint, Autoprefixer
 ```
 
-## Functionality
+## Functionalities
 
-These are all the functionality that has been implemented in this project :-
+These are all the functionalities that has been implemented in this project :-
 
 ```bash
 1. Search Box
