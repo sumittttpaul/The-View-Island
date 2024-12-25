@@ -47,6 +47,7 @@ These are all the functionality that has been implemented in this project :-
 3. Search History
 4. Search Results
 5. Categories Navigation
+6. Mobile Responsive
 ```
 
 ## Components Used
