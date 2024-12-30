@@ -1,3 +1,5 @@
+![theviewisland](https://github.com/user-attachments/assets/b1d9b84d-a55d-4cde-bd8c-13af374ed579)
+
 Hello, I am Sumeet Kumar Paul and here is News App, so let's get started.
 
 ## Getting Started
