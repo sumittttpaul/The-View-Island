@@ -2,7 +2,7 @@
 
 Hello, I am Sumeet Kumar Paul and here is News App, so let's get started.
 
-Watch the video to learn about all the features of this project: [video/theviewisland.vercel.app](https://drive.google.com/file/d/1Y_OcLr63p8qiW4n3rKGLPIsimCamavA0/view?usp=sharing)
+Watch the video to learn about all the features of this project: [video/theviewisland](https://drive.google.com/file/d/1Y_OcLr63p8qiW4n3rKGLPIsimCamavA0/view?usp=sharing)
 
 ## Getting Started
 
